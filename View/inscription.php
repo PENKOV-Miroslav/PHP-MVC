@@ -1,12 +1,18 @@
+<div class="container">
     <?php if (!empty($erreur)) { ?>
-        <p style="color: red;"><?php echo $erreur; ?></p>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $erreur; ?>
+        </div>
     <?php } ?>
     <form method="post">
-        <label for="login">Login :</label>
-        <input type="text" id="login" name="login" required>
-        <br>
-        <label for="mot_de_passe">Mot de passe :</label>
-        <input type="password" id="mot_de_passe" name="mot_de_passe" required>
-        <br>
-        <input type="submit" name="inscription" value="S'inscrire">
+        <div class="mb-3">
+            <label for="login" class="form-label">Login :</label>
+            <input type="text" id="login" name="login" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="mot_de_passe" class="form-label">Mot de passe :</label>
+            <input type="password" id="mot_de_passe" name="mot_de_passe" class="form-control" required>
+        </div>
+        <button type="submit" name="inscription" class="btn btn-primary">S'inscrire</button>
     </form>
+</div>

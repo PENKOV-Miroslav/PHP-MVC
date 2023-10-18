@@ -18,7 +18,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Se connecter</button>
         </form>
-        <a class="nav-link" href="?action=inscription">s'inscrire</a>
+        <a href="?action=inscription">s'inscrire</a>
     </div>
 
     <script>
