@@ -10,7 +10,7 @@ class PageController {
     }
 
     public function PageBulletin_inscription() {
-        $pageTitle = 'Bulletin D\' Inscription';
+        $pageTitle = 'Bulletin d\'inscription';
         $contentFile = 'View/bulletin_inscription.php';
         include 'View/template.php';
     }
