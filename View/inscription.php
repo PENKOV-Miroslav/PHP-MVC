@@ -1,4 +1,3 @@
-<h1>Inscription</h1>
     <?php if (!empty($erreur)) { ?>
         <p style="color: red;"><?php echo $erreur; ?></p>
     <?php } ?>

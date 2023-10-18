@@ -28,7 +28,7 @@ class PageController {
     }
 
     public function PageRFID() {
-        $pageTitle = 'Authentification';
+        $pageTitle = 'Pointage';
         $contentFile = 'View/pointageRfid.php';
         include 'View/template.php';
     }
