@@ -10,7 +10,7 @@ class Routeur {
                 $controller->PageBulletin_inscription();
                 break;
             case 'authentification':
-                //$authController->login();
+               // $authController->login();
                 $controller->PageAuthentification();
                 break;
             case 'inscription':
