@@ -39,6 +39,24 @@ class UtilisateurDAO {
             return null;
         }
     }
+    // Cette méthode permet de récupérer un utilisateur en fonction de son nom d'utilisateur (login)
+    public function getUtilisateurByLogin($login) {
+        try {
+            $sql = "SELECT * FROM utilisateurs WHERE login_utilisateur = :login_utilisateur";
+            $stmt = $this->connexion->getConnexion()->prepare($sql);
+            $stmt->bindParam(':login_utilisateur', $login);
+            $stmt->execute();
+
+            // Utilisation de fetch pour récupérer un seul résultat (car le login est supposé être unique)
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result;
+        } catch (PDOException $e) {
+            // Gérez l'erreur de base de données ici (par exemple, enregistrer le message d'erreur dans les logs)
+            echo "Erreur lors de la récupération de l'utilisateur : " . $e->getMessage();
+            return null;
+        }
+    }
 
     // Mettre à jour un utilisateur
     public function updateUtilisateur(Utilisateur $utilisateur) {
