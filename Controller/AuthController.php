@@ -7,7 +7,12 @@ class AuthController {
     private $connexion;
 
     public function __construct() {
-        $this->connexion = new ConnexionBDD("localhost", "raid_ckc", "raid_ckc", "raid_ckc");
+                // Remplacez ces informations par les vôtres
+                $host = 'localhost';
+                $db_name = 'raid_ckc';
+                $username = 'raid_ckc';
+                $password = 'raid_ckc';
+                $this->connexion = new ConnexionBDD($host, $db_name, $username, $password);
     }
 
     public function login() {
