@@ -1,6 +1,8 @@
 <?php
 
+require_once('DAO/ConnexionBDD.php');
 require_once('DAO/UtilisateurDAO.php');
+require_once('Model/Utilisateur.php');
 
 class AuthController {
     private $connexion;
