@@ -22,7 +22,7 @@ class PageController {
     }
 
     public function PageInscription() {
-        $pageTitle = 'Inscription';
+        $pageTitle = 'Enregistrer';
         $contentFile = 'View/inscription.php';
         include 'View/template.php';
     }

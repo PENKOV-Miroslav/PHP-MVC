@@ -1,82 +1,77 @@
 <?php
-
-require_once('Model/Role.php');
-
 class RoleDAO {
-
     private $connexion;
 
-    public function __construct($connexion) {
+    public function __construct(ConnexionBDD $connexion) {
         $this->connexion = $connexion;
     }
 
-    // Insérer un rôle
-    public function createRole(Role $role) {
+    public function ajouterRole(Role $role) {
+        $sql = "INSERT INTO role (libelle_role) VALUES (:libelle_role)";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':libelle_role', $role->getLibelle_role());
+
         try {
-            $sql = "INSERT INTO roles (libelle_role) VALUES (:libelle_role)";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':libelle_role', $role->getLibelle_role());
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo "Erreur lors de l'insertion : " . $e->getMessage();
+            // Gérer les erreurs d'insertion
             return false;
         }
     }
 
-    // Obtenir un rôle par son ID
-    public function getRoleById($id) {
+    public function modifierRole(Role $role) {
+        $sql = "UPDATE role SET libelle_role = :libelle_role WHERE id_role = :id_role";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_role', $role->getId_role());
+        $stmt->bindParam(':libelle_role', $role->getLibelle_role());
+
         try {
-            $sql = "SELECT * FROM roles WHERE id_role = :id_role";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':id_role', $id);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            // Gérer les erreurs de mise à jour
+            return false;
+        }
+    }
+
+    public function supprimerRole($id_role) {
+        $sql = "DELETE FROM role WHERE id_role = :id_role";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_role', $id_role);
+
+        try {
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            // Gérer les erreurs de suppression
+            return false;
+        }
+    }
+
+    public function getRoleParId($id_role) {
+        $sql = "SELECT * FROM role WHERE id_role = :id_role";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_role', $id_role);
+
+        try {
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Erreur lors de la récupération : " . $e->getMessage();
+            // Gérer les erreurs de récupération
             return null;
         }
     }
 
-    // Mettre à jour un rôle
-    public function updateRole(Role $role) {
-        try {
-            $sql = "UPDATE roles SET libelle_role = :libelle_role WHERE id_role = :id_role";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':libelle_role', $role->getLibelle_role());
-            $stmt->bindParam(':id_role', $role->getId_role());
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            echo "Erreur lors de la mise à jour : " . $e->getMessage();
-            return false;
-        }
-    }
+    public function getAllRoles() {
+        $sql = "SELECT * FROM role";
+        $stmt = $this->connexion->connect()->query($sql);
 
-    // Supprimer un rôle
-    public function deleteRole($id) {
         try {
-            $sql = "DELETE FROM roles WHERE id_role = :id_role";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':id_role', $id);
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            echo "Erreur lors de la suppression : " . $e->getMessage();
-            return false;
-        }
-    }
-
-    // Récupérer tous les rôles
-    public function findAllRoles() {
-        try {
-            $sql = "SELECT * FROM roles";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Erreur lors de la récupération de tous les rôles : " . $e->getMessage();
-            return array(); // Retourne un tableau vide en cas d'erreur
+            // Gérer les erreurs de récupération
+            return null;
         }
     }
 }

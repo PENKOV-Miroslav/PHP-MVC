@@ -4,7 +4,7 @@ class NomDeLaClasseDAO {
 
 private $connexion;
 
-public function __construct($connexion) {
+public function __construct(ConnexionBDD $connexion) {
     $this->connexion = $connexion;
 }
 
@@ -96,6 +96,19 @@ public function delete($id) {
     } catch (PDOException $e) {
         echo "Erreur lors de la suppression : " . $e->getMessage();
         return false; // Renvoie faux en cas d'erreur
+    }
+}
+
+    // Récupérer un tableau de valeur
+public function findAll() {
+    try {
+        $sql = "SELECT * FROM nom_de_la_table";
+        $stmt = $this->connexion->getConnexion()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Erreur lors de la récupération de toutes les catégories : " . $e->getMessage();
+        return array(); // Retourne un tableau vide en cas d'erreur
     }
 }
 }

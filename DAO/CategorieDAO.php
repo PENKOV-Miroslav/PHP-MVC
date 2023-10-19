@@ -1,82 +1,77 @@
 <?php
-
-require_once('Model/Categorie.php');
-
 class CategorieDAO {
-
     private $connexion;
 
-    public function __construct($connexion) {
+    public function __construct(ConnexionBDD $connexion) {
         $this->connexion = $connexion;
     }
 
-    // Insérer une catégorie
-    public function createCategorie(Categorie $categorie) {
+    public function ajouterCategorie(Categorie $categorie) {
+        $sql = "INSERT INTO categories (libelle_categorie) VALUES (:libelle_categorie)";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':libelle_categorie', $categorie->getLibelle_categorie());
+
         try {
-            $sql = "INSERT INTO categories (libelle_categorie) VALUES (:libelle_categorie)";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':libelle_categorie', $categorie->getLibelle_categorie());
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo "Erreur lors de l'insertion : " . $e->getMessage();
+            // Gérer les erreurs d'insertion
             return false;
         }
     }
 
-    // Obtenir une catégorie par son ID
-    public function getCategorieById($id) {
+    public function modifierCategorie(Categorie $categorie) {
+        $sql = "UPDATE categories SET libelle_categorie = :libelle_categorie WHERE id_categorie = :id_categorie";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_categorie', $categorie->getId_categorie());
+        $stmt->bindParam(':libelle_categorie', $categorie->getLibelle_categorie());
+
         try {
-            $sql = "SELECT * FROM categories WHERE id_categorie = :id_categorie";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':id_categorie', $id);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            // Gérer les erreurs de mise à jour
+            return false;
+        }
+    }
+
+    public function supprimerCategorie($id_categorie) {
+        $sql = "DELETE FROM categories WHERE id_categorie = :id_categorie";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_categorie', $id_categorie);
+
+        try {
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            // Gérer les erreurs de suppression
+            return false;
+        }
+    }
+
+    public function getCategorieParId($id_categorie) {
+        $sql = "SELECT * FROM categories WHERE id_categorie = :id_categorie";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_categorie', $id_categorie);
+
+        try {
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Erreur lors de la récupération : " . $e->getMessage();
+            // Gérer les erreurs de récupération
             return null;
         }
     }
 
-    // Mettre à jour une catégorie
-    public function updateCategorie(Categorie $categorie) {
-        try {
-            $sql = "UPDATE categories SET libelle_categorie = :libelle_categorie WHERE id_categorie = :id_categorie";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':libelle_categorie', $categorie->getLibelle_categorie());
-            $stmt->bindParam(':id_categorie', $categorie->getId_categorie());
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            echo "Erreur lors de la mise à jour : " . $e->getMessage();
-            return false;
-        }
-    }
+    public function getAllCategories() {
+        $sql = "SELECT * FROM categories";
+        $stmt = $this->connexion->connect()->query($sql);
 
-    // Supprimer une catégorie
-    public function deleteCategorie($id) {
         try {
-            $sql = "DELETE FROM categories WHERE id_categorie = :id_categorie";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':id_categorie', $id);
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            echo "Erreur lors de la suppression : " . $e->getMessage();
-            return false;
-        }
-    }
-
-    // Récupérer toutes les catégories
-    public function findAllCategories() {
-        try {
-            $sql = "SELECT * FROM categories";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Erreur lors de la récupération de toutes les catégories : " . $e->getMessage();
-            return array(); // Retourne un tableau vide en cas d'erreur
+            // Gérer les erreurs de récupération
+            return null;
         }
     }
 }

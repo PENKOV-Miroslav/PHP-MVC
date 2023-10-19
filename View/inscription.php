@@ -1,18 +1,19 @@
-<div class="container">
-    <?php if (!empty($erreur)) { ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo $erreur; ?>
-        </div>
-    <?php } ?>
-    <form method="post">
-        <div class="mb-3">
-            <label for="login" class="form-label">Login :</label>
-            <input type="text" id="login" name="login" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="mot_de_passe" class="form-label">Mot de passe :</label>
-            <input type="password" id="mot_de_passe" name="mot_de_passe" class="form-control" required>
-        </div>
-        <button type="submit" name="inscription" class="btn btn-primary">S'inscrire</button>
-    </form>
-</div>
+<form method="post" action="index.php?action=register" class="form">
+    <div class="form-group mb-3">
+        <input type="text" name="username" class="form-control" placeholder="Nom d'utilisateur" required>
+    </div>
+
+    <div class="form-group mb-3">
+        <input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
+    </div>
+
+    <div class="form-group mb-3">
+        <select name="role" class="form-control">
+            <option value="1">Admin</option>
+            <option value="2">Secretaire</option>
+            <option value="3">Pointeur</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">S'inscrire</button>
+</form>

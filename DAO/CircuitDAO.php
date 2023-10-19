@@ -1,84 +1,79 @@
 <?php
-
-require_once('Model/Circuit.php');
-
 class CircuitDAO {
-
     private $connexion;
 
-    public function __construct($connexion) {
+    public function __construct(ConnexionBDD $connexion) {
         $this->connexion = $connexion;
     }
 
-    // Insérer un circuit
-    public function createCircuit(Circuit $circuit) {
+    public function ajouterCircuit(Circuit $circuit) {
+        $sql = "INSERT INTO circuits (libelle_circuit, id_raid) VALUES (:libelle_circuit, :id_raid)";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':libelle_circuit', $circuit->getLibelle_circuit());
+        $stmt->bindParam(':id_raid', $circuit->getId_raid());
+
         try {
-            $sql = "INSERT INTO circuits (libelle_circuit, id_raid) VALUES (:libelle_circuit, :id_raid)";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':libelle_circuit', $circuit->getLibelle_circuit());
-            $stmt->bindParam(':id_raid', $circuit->getId_raid());
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo "Erreur lors de l'insertion : " . $e->getMessage();
+            // Gérer les erreurs d'insertion
             return false;
         }
     }
 
-    // Obtenir un circuit par son ID
-    public function getCircuitById($id) {
+    public function modifierCircuit(Circuit $circuit) {
+        $sql = "UPDATE circuits SET libelle_circuit = :libelle_circuit, id_raid = :id_raid WHERE id_circuit = :id_circuit";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_circuit', $circuit->getId_circuit());
+        $stmt->bindParam(':libelle_circuit', $circuit->getLibelle_circuit());
+        $stmt->bindParam(':id_raid', $circuit->getId_raid());
+
         try {
-            $sql = "SELECT * FROM circuits WHERE id_circuit = :id_circuit";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':id_circuit', $id);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            // Gérer les erreurs de mise à jour
+            return false;
+        }
+    }
+
+    public function supprimerCircuit($id_circuit) {
+        $sql = "DELETE FROM circuits WHERE id_circuit = :id_circuit";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_circuit', $id_circuit);
+
+        try {
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            // Gérer les erreurs de suppression
+            return false;
+        }
+    }
+
+    public function getCircuitParId($id_circuit) {
+        $sql = "SELECT * FROM circuits WHERE id_circuit = :id_circuit";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_circuit', $id_circuit);
+
+        try {
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Erreur lors de la récupération : " . $e->getMessage();
+            // Gérer les erreurs de récupération
             return null;
         }
     }
 
-    // Mettre à jour un circuit
-    public function updateCircuit(Circuit $circuit) {
-        try {
-            $sql = "UPDATE circuits SET libelle_circuit = :libelle_circuit, id_raid = :id_raid WHERE id_circuit = :id_circuit";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':libelle_circuit', $circuit->getLibelle_circuit());
-            $stmt->bindParam(':id_raid', $circuit->getId_raid());
-            $stmt->bindParam(':id_circuit', $circuit->getId_circuit());
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            echo "Erreur lors de la mise à jour : " . $e->getMessage();
-            return false;
-        }
-    }
+    public function getAllCircuits() {
+        $sql = "SELECT * FROM circuits";
+        $stmt = $this->connexion->connect()->query($sql);
 
-    // Supprimer un circuit
-    public function deleteCircuit($id) {
         try {
-            $sql = "DELETE FROM circuits WHERE id_circuit = :id_circuit";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':id_circuit', $id);
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            echo "Erreur lors de la suppression : " . $e->getMessage();
-            return false;
-        }
-    }
-
-    // Récupérer tous les circuits
-    public function findAllCircuits() {
-        try {
-            $sql = "SELECT * FROM circuits";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Erreur lors de la récupération de tous les circuits : " . $e->getMessage();
-            return array(); // Retourne un tableau vide en cas d'erreur
+            // Gérer les erreurs de récupération
+            return null;
         }
     }
 }

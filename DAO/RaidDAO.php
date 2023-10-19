@@ -1,81 +1,77 @@
 <?php
-require_once('Model/Raid.php');
-
 class RaidDAO {
-
     private $connexion;
 
-    public function __construct($connexion) {
+    public function __construct(ConnexionBDD $connexion) {
         $this->connexion = $connexion;
     }
 
-    // Insérer un raid
-    public function createRaid(Raid $raid) {
+    public function ajouterRaid(Raid $raid) {
+        $sql = "INSERT INTO raid (libelle_raid) VALUES (:libelle_raid)";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':libelle_raid', $raid->getLibelle_raid());
+
         try {
-            $sql = "INSERT INTO raids (libelle_raid) VALUES (:libelle_raid)";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':libelle_raid', $raid->getLibelle_raid());
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            echo "Erreur lors de l'insertion : " . $e->getMessage();
+            // Gérer les erreurs d'insertion
             return false;
         }
     }
 
-    // Obtenir un raid par son ID
-    public function getRaidById($id) {
+    public function modifierRaid(Raid $raid) {
+        $sql = "UPDATE raid SET libelle_raid = :libelle_raid WHERE id_raid = :id_raid";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_raid', $raid->getId_raid());
+        $stmt->bindParam(':libelle_raid', $raid->getLibelle_raid());
+
         try {
-            $sql = "SELECT * FROM raids WHERE id_raid = :id_raid";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':id_raid', $id);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            // Gérer les erreurs de mise à jour
+            return false;
+        }
+    }
+
+    public function supprimerRaid($id_raid) {
+        $sql = "DELETE FROM raid WHERE id_raid = :id_raid";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_raid', $id_raid);
+
+        try {
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            // Gérer les erreurs de suppression
+            return false;
+        }
+    }
+
+    public function getRaidParId($id_raid) {
+        $sql = "SELECT * FROM raid WHERE id_raid = :id_raid";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':id_raid', $id_raid);
+
+        try {
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Erreur lors de la récupération : " . $e->getMessage();
+            // Gérer les erreurs de récupération
             return null;
         }
     }
 
-    // Mettre à jour un raid
-    public function updateRaid(Raid $raid) {
-        try {
-            $sql = "UPDATE raids SET libelle_raid = :libelle_raid WHERE id_raid = :id_raid";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':libelle_raid', $raid->getLibelle_raid());
-            $stmt->bindParam(':id_raid', $raid->getId_raid());
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            echo "Erreur lors de la mise à jour : " . $e->getMessage();
-            return false;
-        }
-    }
+    public function getAllRaids() {
+        $sql = "SELECT * FROM raid";
+        $stmt = $this->connexion->connect()->query($sql);
 
-    // Supprimer un raid
-    public function deleteRaid($id) {
         try {
-            $sql = "DELETE FROM raids WHERE id_raid = :id_raid";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->bindParam(':id_raid', $id);
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            echo "Erreur lors de la suppression : " . $e->getMessage();
-            return false;
-        }
-    }
-
-    // Récupérer tous les raids
-    public function findAllRaids() {
-        try {
-            $sql = "SELECT * FROM raids";
-            $stmt = $this->connexion->getConnexion()->prepare($sql);
-            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Erreur lors de la récupération de tous les raids : " . $e->getMessage();
-            return array(); // Retourne un tableau vide en cas d'erreur
+            // Gérer les erreurs de récupération
+            return null;
         }
     }
 }
