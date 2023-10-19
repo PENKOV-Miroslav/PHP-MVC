@@ -30,6 +30,7 @@ class PageController {
     
             if ($utilisateur) {
                 // L'authentification a réussi, redirigez l'utilisateur vers son espace personnel
+                include 'View/template.php';
                 header('Location: espace_personnel.php');
                 exit;
             } else {
@@ -46,10 +47,34 @@ class PageController {
     
 
     public function PageInscription() {
-        $pageTitle = 'Enregistrer';
-        $contentFile = 'View/inscription.php';
-        include 'View/template.php';
+        $pageTitle = 'Inscription';
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Récupérez les données du formulaire
+            $login = $_POST['login'];
+            $mot_de_passe = $_POST['mot_de_passe'];
+            $id_role = $_POST['id_role']; // Vous devez avoir un moyen de sélectionner le rôle dans le formulaire
+    
+            // Inscrivez l'utilisateur
+            $connexionBDD = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
+            $utilisateurDAO = new UtilisateurDAO($connexionBDD);
+    
+            if ($utilisateurDAO->inscrireUtilisateur($login, $mot_de_passe, $id_role)) {
+                // L'inscription a réussi, redirigez l'utilisateur vers la page d'authentification ou autre
+                header('Location: authentification.php'); // Remplacez avec votre page d'authentification
+                exit;
+            } else {
+                // L'inscription a échoué, affichez un message d'erreur
+                $errorMessage = 'L\'inscription a échoué.';
+                $contentFile = 'View/inscription.php';
+                include 'View/template.php';
+            }
+        } else {
+            $contentFile = 'View/inscription.php';
+            include 'View/template.php';
+        }
     }
+    
 
     public function PageRFID() {
         $pageTitle = 'Pointage';
