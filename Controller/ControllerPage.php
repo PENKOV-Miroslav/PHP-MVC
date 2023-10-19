@@ -9,11 +9,43 @@ class PageController {
         include 'View/template.php';
     }
 
-    public function PageBulletin_inscription() {
-        $pageTitle = 'Bulletin d\'inscription';
-        $contentFile = 'View/bulletin_inscription.php';
-        include 'View/template.php';
+    public function TraitementFormulaireInscription() {
+        $pageTitle = 'Traitement Inscription';
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Récupérez les données du formulaire
+            $categorie_formule = $_POST['categorie_formule'];
+            $categorie = $_POST['categorie'];
+            $nom = $_POST['nom'];
+            $prenom = $_POST['prenom'];
+            $date_naissance = $_POST['date_naissance'];
+            $adresse = $_POST['adresse'];
+            $club = $_POST['club'];
+            $email = $_POST['email'];
+    
+            $nom_equipier = $_POST['nom_equipier'];
+            $prenom_equipier = $_POST['prenom_equipier'];
+            $date_naissance_equipier = $_POST['date_naissance_equipier'];
+            $adresse_equipier = $_POST['adresse_equipier'];
+            $club_equipier = $_POST['club_equipier'];
+            $email_equipier = $_POST['email_equipier'];
+    
+            $tel_capitaine = $_POST['tel_capitaine'];
+            $tel_equipier = $_POST['tel_equipier'];
+    
+            // Vous pouvez effectuer des validations supplémentaires ici, si nécessaire
+    
+            // Ensuite, vous pouvez insérer les données dans la base de données ou effectuer d'autres actions nécessaires
+    
+            // Redirigez l'utilisateur vers une page de confirmation ou une autre page appropriée
+            header('Location: confirmation.php'); // Remplacez par la page de confirmation
+            exit;
+        } else {
+            $contentFile = 'View/bulletin_inscription.php';
+            include 'View/template.php';
+        }
     }
+    
 
     public function PageAuthentification() {
         $pageTitle = 'Authentification';

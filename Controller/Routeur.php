@@ -6,7 +6,7 @@ class Routeur {
 
         switch ($action) {
             case 'bulletin_inscription':
-                $controller->PageBulletin_inscription();
+                $controller->TraitementFormulaireInscription();
                 break;
             case 'authentification':
                 $controller->PageAuthentification();
