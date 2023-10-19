@@ -4,7 +4,7 @@
                 <div class="card">
                     <div class="card-header">Authentification</div>
                     <div class="card-body">
-                        <form method="POST" action="index.php?action=authentification">
+                        <form method="POST" action="?action=authentification">
                             <div class="form-group">
                                 <label for="login">Login</label>
                                 <input type="text" class="form-control" id="login" name="login" required>
@@ -25,6 +25,7 @@
             </div>
         </div>
     </div>
+    <a href="?action=inscription">s'inscrire</a>
 
 
     <script>
