@@ -6,6 +6,28 @@ class UtilisateurDAO {
         $this->connexion = $connexion;
     }
 
+    public function authentifierUtilisateur($login, $mot_de_passe) {
+        $sql = "SELECT * FROM utilisateurs WHERE login_utilisateur = :login_utilisateur";
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':login_utilisateur', $login);
+    
+        try {
+            $stmt->execute();
+            $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            if ($utilisateur && password_verify($mot_de_passe, $utilisateur['mot_de_passe_utilisateur'])) {
+                return $utilisateur;
+            } else {
+                return null; // Authentification échouée
+            }
+        } catch (PDOException $e) {
+            // Gérer les erreurs de requête
+            return null;
+        }
+    }
+    
+
+
     public function ajouterUtilisateur(Utilisateur $utilisateur) {
         $sql = "INSERT INTO utilisateur (login_utilisateur, mot_de_passe_utilisateur, id_role) VALUES (:login_utilisateur, :mot_de_passe_utilisateur, :id_role)";
         $stmt = $this->connexion->connect()->prepare($sql);

@@ -1,23 +1,31 @@
-<div class="container">
-        <?php if (isset($erreur)) { ?>
-        <p style="color: red;"><?php echo $erreur; ?></p>
-    <?php } ?>
-        <form method="post" action="index.php?action=login">
-            <div class="mb-3">
-                <input type="text" class="form-control" id="login" name="login" placeholder="Nom d'utilisateur" required>
-            </div>
-            <div class="mb-3">
-                <div class="input-group">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
-                    <button type="button" class="btn btn-secondary" id="montrer_password">
-                        <i class="far fa-eye"></i>
-                    </button>
+<div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Authentification</div>
+                    <div class="card-body">
+                        <form method="POST" action="index.php?action=authentification">
+                            <div class="form-group">
+                                <label for="login">Login</label>
+                                <input type="text" class="form-control" id="login" name="login" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mot de passe</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" name="mot_de_passe" required>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-secondary" id="montrer_password"><i class="far fa-eye"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Se connecter</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Se connecter</button>
-        </form>
-        <a href="?action=inscription">s'inscrire</a>
+        </div>
     </div>
+
 
     <script>
         const passwordInput = document.getElementById("password");
