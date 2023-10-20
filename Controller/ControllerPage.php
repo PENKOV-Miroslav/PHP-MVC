@@ -16,6 +16,12 @@ class PageController {
         $contentFile = 'View/bulletin_inscription.php';
         include 'View/template.php';
     }
+
+    public function PageRFID() {
+        $pageTitle = 'Pointage';
+        $contentFile = 'View/pointageRfid.php';
+        include 'View/template.php';
+    }
     
 
     public function PageAuthentification() {
@@ -80,10 +86,4 @@ class PageController {
         include 'View/template.php';
     }
     
-
-    public function PageRFID() {
-        $pageTitle = 'Pointage';
-        $contentFile = 'View/pointageRfid.php';
-        include 'View/template.php';
-    }
 }

@@ -25,11 +25,12 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a class="nav-link" href="?action=bulletin_inscription">S'inscrire au raid</a></li>
                     <li class="nav-item active"><a class="nav-link" href="?action=authentification">Connexion au compte</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="?action=inscription">Inscrire un nouveau compte</a></li>
                     <li class="nav-item active"><a class="nav-link" href="?action=rfid">rfid</a></li>
                 </ul>
             </nav>
 
-            <main class="container mt-4 contenu-centre"> <!-- Ajout de l'espace -->
+            <main class="container mt-4"> <!-- Ajout de l'espace -->
                 <div class="row">
                     <div class="col-md-8">
                         <?php include $contentFile; ?>
