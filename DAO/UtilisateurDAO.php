@@ -5,16 +5,15 @@ class UtilisateurDAO {
     public function __construct(ConnexionBDD $connexion) {
         $this->connexion = $connexion;
     }
-
+    
     public function authentifierUtilisateur($login, $mot_de_passe) {
         $sql = "SELECT * FROM utilisateurs WHERE login_utilisateur = :login_utilisateur";
         $stmt = $this->connexion->connect()->prepare($sql);
         $stmt->bindParam(':login_utilisateur', $login);
-    
         try {
             $stmt->execute();
             $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+        
             if ($utilisateur && password_verify($mot_de_passe, $utilisateur['mot_de_passe_utilisateur'])) {
                 return $utilisateur;
             } else {
@@ -25,29 +24,25 @@ class UtilisateurDAO {
             return null;
         }
     }
+    
 
     public function inscrireUtilisateur($login, $mot_de_passe, $id_role) {
         // Vérifiez d'abord si l'utilisateur avec le même login existe déjà
-        $sql = "SELECT * FROM utilisateur WHERE login_utilisateur = :login_utilisateur";
+        $sql = "SELECT * FROM utilisateurs WHERE login_utilisateur = :login_utilisateur";
         $stmt = $this->connexion->connect()->prepare($sql);
         $stmt->bindParam(':login_utilisateur', $login);
-    
         $stmt->execute();
         $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
-    
         if ($existingUser) {
             return false; // Utilisateur avec le même login existe déjà
         }
-    
         // Si l'utilisateur n'existe pas, vous pouvez insérer les données dans la base de données
         $mot_de_passe_hache = password_hash($mot_de_passe, PASSWORD_DEFAULT);
-    
-        $sql = "INSERT INTO utilisateur (login_utilisateur, mot_de_passe_utilisateur, id_role) VALUES (:login_utilisateur, :mot_de_passe, :id_role)";
+        $sql = "INSERT INTO utilisateurs (login_utilisateur, mot_de_passe_utilisateur, id_role) VALUES (:login_utilisateur, :mot_de_passe, :id_role)";
         $stmt = $this->connexion->connect()->prepare($sql);
         $stmt->bindParam(':login_utilisateur', $login);
         $stmt->bindParam(':mot_de_passe', $mot_de_passe_hache);
         $stmt->bindParam(':id_role', $id_role);
-    
         try {
             $stmt->execute();
             return true; // L'inscription a réussi
@@ -56,6 +51,7 @@ class UtilisateurDAO {
             return false;
         }
     }
+    
 
 
     /*********************************** CRUD *******************************************/
