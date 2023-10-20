@@ -11,11 +11,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script scr="Contenu/js/script.js"></script>
 </head>
-<body class="container">
+<body>
     <header>
-        <h1 class="text-center"><?php echo $pageTitle; ?></h1>
-    </header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <!-- Logo de l'organisation (dans la barre de navigation) -->
                 <a class="navbar-brand" href="?action=accueil">
                     <img src="Contenu/images/logo.png" alt="Logo de l'organisation" class="img-fluid" style="max-width: 100px;">
@@ -30,9 +28,13 @@
                 </ul>
             </nav>
 
+    </header>
+
+
             <main class="container mt-4"> <!-- Ajout de l'espace -->
                 <div class="row">
                     <div class="col-md-8">
+                    <h1 class="text-center"><?php echo $pageTitle; ?></h1>
                         <?php include $contentFile; ?>
                     </div>
                 </div>

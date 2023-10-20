@@ -12,7 +12,7 @@ class PageController {
     }
 
     public function TraitementFormulaireInscription() {
-        $pageTitle = 'Traitement Inscription';
+        $pageTitle = 'S\'inscrire au raid';
         $contentFile = 'View/bulletin_inscription.php';
         include 'View/template.php';
     }
