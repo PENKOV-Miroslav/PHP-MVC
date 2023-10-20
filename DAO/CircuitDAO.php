@@ -1,4 +1,5 @@
 <?php
+require_once('Model/Circuit.php');
 class CircuitDAO {
     private $connexion;
 

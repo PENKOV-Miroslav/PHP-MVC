@@ -1,4 +1,5 @@
 <?php
+require_once ('Model/Raid.php');
 class RaidDAO {
     private $connexion;
 

@@ -1,4 +1,6 @@
 <?php
+require_once ('Model/Role.php');
+
 class RoleDAO {
     private $connexion;
 

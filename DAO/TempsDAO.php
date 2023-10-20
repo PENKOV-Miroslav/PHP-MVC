@@ -1,4 +1,7 @@
 <?php
+
+require_once ('Model/Temps.php');
+
 class TempsDAO {
     private $connexion;
 

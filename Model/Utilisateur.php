@@ -36,7 +36,7 @@ class Utilisateur{
         return $this->mot_de_passe_utilisateur;
     }
     
-    public function setMot_de_passe_utilisateur($) {
+    public function setMot_de_passe_utilisateur($mot_de_passe_utilisateur) {
         $this->mot_de_passe_utilisateur = $mot_de_passe_utilisateur;
     }
     ////////////////////////

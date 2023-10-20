@@ -1,4 +1,5 @@
 <?php
+require_once ('Model/Equipe.php');
 class EquipeDAO {
     private $connexion;
 

@@ -3,11 +3,12 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <?php if (isset($errorMessage) && !empty($errorMessage)) : ?>
-                        <div class="alert alert-danger">
-                            <?php echo $errorMessage; ?>
-                        </div>
-                    <?php endif; ?>
+                <?php if (isset($_SESSION['error']) && !empty($_SESSION['error'])) : ?>
+                    <div class="alert alert-danger">
+                        <?php echo htmlspecialchars($_SESSION['error']); ?>
+                    </div>
+                    <?php unset($_SESSION['error']); // Effacez le message d'erreur après l'avoir affiché ?>
+                <?php endif; ?>
 
                     <form method="post">
                         <div class="form-group mb-3">

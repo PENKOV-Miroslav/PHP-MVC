@@ -1,4 +1,5 @@
 <?php
+require_once('Model/Categorie.php');
 class CategorieDAO {
     private $connexion;
 
