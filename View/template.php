@@ -29,7 +29,7 @@
                 </ul>
             </nav>
 
-            <main class="container mt-4"> <!-- Ajout de mt-4 pour l'espace -->
+            <main class="container mt-4 contenu-centre"> <!-- Ajout de l'espace -->
                 <div class="row">
                     <div class="col-md-8">
                         <?php include $contentFile; ?>

@@ -17,11 +17,13 @@
                             <label for="id_role">Rôle</label>
                             <select class="form-control" id="id_role" name="id_role">
                                 <!-- Remplacez ceci par les options de rôle que vous souhaitez -->
-                                <option value="1">Rôle 1</option>
-                                <option value="2">Rôle 2</option>
-                                <option value="3">Rôle 3</option>
+                                <option>Séléctionner un role</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Sectetaire</option>
+                                <option value="3">Benevol</option>
                             </select>
                         </div>
+                        <br>
                         <button type="submit" class="btn btn-primary">S'inscrire</button>
                     </form>
                 </div>

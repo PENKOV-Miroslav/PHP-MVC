@@ -18,14 +18,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <br>
                             <button type="submit" class="btn btn-primary">Se connecter</button>
+                            <a href="?action=inscription">s'inscrire</a>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <a href="?action=inscription">s'inscrire</a>
+
 
 
     <script>

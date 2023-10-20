@@ -3,3 +3,10 @@
     background-color: #008cff;
     border-radius: 3px;
 }
+
+.contenu-centre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
