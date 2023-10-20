@@ -44,7 +44,6 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">Adresse mail :</label>
                     <input type="email" id="email" name="email" class="form-control" placeholder="Adresse mail" required>
                 </div>
             </div>
