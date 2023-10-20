@@ -6,7 +6,6 @@
             <h2>Informations du Capitaine </h2>
 
             <div class="mb-3">
-                <label for="categorie_formule" class="form-label">Circuit :</label>
                 <select id="categorie_formule" name="categorie_formule" class="form-select">
                     <option value="" disabled selected>Séléctionner un circuit</option>
                     <option value="bol_air">BOL D'AIR (50 €)</option>
@@ -15,7 +14,6 @@
             </div>
 
             <div class="mb-3">
-                <label for="categorie" class="form-label">Catégorie :</label>
                 <select id="categorie" name="categorie" class="form-select">
                     <option value="" disabled selected>Séléctionner une catégorie</option>
                     <option value="homme">Homme</option>

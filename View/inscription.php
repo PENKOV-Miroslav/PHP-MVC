@@ -8,20 +8,17 @@
             </div>
             <?php endif; ?>
             
-            <form method="post" action="">
+            <form method="post">
                 <div class="form-group">
-                    <label for="login">Nom d'utilisateur:</label>
-                    <input type="text" class="form-control" name="login" id="login" required>
+                    <input type="text" class="form-control" name="login" id="login" placeholder="Nom d'utilisateur" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="mot_de_passe">Mot de passe:</label>
-                    <input type="password" class="form-control" name="mot_de_passe" id="mot_de_passe" required>
+                    <input type="password" class="form-control" name="mot_de_passe" id="mot_de_passe" placeholder="Mot de passe" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="id_role">Rôle</label>
-                    <select class="form-control" id="id_role" name="id_role">
+                    <select class="form-control" id="id_role" name="id_role" required>
                         <option value="" disabled selected>Sélectionner un rôle</option>
                         <option value="1">Admin</option>
                         <option value="2">Secrétaire</option>

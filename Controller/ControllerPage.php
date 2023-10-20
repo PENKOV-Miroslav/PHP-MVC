@@ -25,8 +25,6 @@ class PageController {
     
 
     public function PageAuthentification() {
-        $pageTitle = 'Authentification';
-        $contentFile = 'View/authentification.php';
 
         $errorMessages = include 'View/errorAuthentification.php';
         $errorMessage = ''; // Initialisation du message d'erreur
@@ -51,7 +49,9 @@ class PageController {
                 header('Location: View/authentification.php');
             }
         }
-    
+        
+        $pageTitle = 'Authentification';
+        $contentFile = 'View/authentification.php';    
         include 'View/template.php';
     }
     
