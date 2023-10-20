@@ -21,6 +21,9 @@ class PageController {
     public function PageAuthentification() {
         $pageTitle = 'Authentification';
         $contentFile = 'View/authentification.php';
+
+        $errorMessages = include 'View/errorAuthentification.php';
+        $errorMessage = ''; // Initialisation du message d'erreur
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Traitement du formulaire d'authentification
@@ -38,6 +41,8 @@ class PageController {
             } else {
                 // Authentification échouée, affichez un message d'erreur.
                 // Vous pouvez ajouter une variable d'erreur à la vue.
+                $errorMessage = $errorMessages['authentification_failed'];
+                header('Location: View/authentification.php');
             }
         }
     
@@ -48,6 +53,9 @@ class PageController {
     public function PageInscription() {
         $pageTitle = 'Inscription';
         $contentFile = 'View/inscription.php';
+
+        $errorMessages = include 'View/errorInscription.php';
+        $errorMessage = ''; // Initialisation du message d'erreur
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Traitement du formulaire d'inscription
@@ -61,8 +69,11 @@ class PageController {
     
             if ($inscriptionReussie) {
                 // L'inscription a réussi, redirigez l'utilisateur vers une page appropriée.
+                header('Location: View/inscription_reussie.php'); // Remplacez 'inscription_reussie.php' par l'URL de la page de succès.
+            exit;
             } else {
                 // L'inscription a échoué, affichez un message d'erreur.
+                $errorMessage = $errorMessages['inscription_failed'];
             }
         }
     
