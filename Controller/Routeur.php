@@ -17,6 +17,18 @@ class Routeur {
             case 'rfid':
                 $controller->PageRFID();
                 break;
+            case 'PageEspaceAdmin':
+                $controller->PageEspaceAdmin();
+                break;
+            case 'PageEspaceSecretaire':
+                $controller->PageEspaceSecretaire();
+                break;
+            case 'PageEspaceBenevole':
+                $controller->PageEspaceBenevole();
+                break;
+            case 'deconnexion':
+                $controller->PageDeconnexion();
+                break;
             default:
                 $controller->Accueil();
                 break;

@@ -3,7 +3,8 @@ session_start();
 
 if (!isset($_SESSION['user_id'])) {
     // L'utilisateur n'est pas authentifié, redirigez-le vers la page d'authentification
-    header('Location: View/authentification.php');
+    $redirection = '?action=authentification'; // Redirection en cas d'erreur
+    header("Location: $redirection");
     exit;
 }
 ?>
@@ -12,4 +13,4 @@ if (!isset($_SESSION['user_id'])) {
     <p>Vous êtes connecté en tant que bénévole.</p>
     <!-- Contenu spécifique pour l'espace bénévole -->
 
-<a href="deconnexion.php">Déconnexion</a>
+<a href="?action=deconnexion">Déconnexion</a>

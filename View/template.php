@@ -23,7 +23,6 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a class="nav-link" href="?action=bulletin_inscription">S'inscrire au raid</a></li>
                     <li class="nav-item active"><a class="nav-link" href="?action=authentification">Connexion au compte</a></li>
-                    <li class="nav-item active"><a class="nav-link" href="?action=inscription">Inscrire un nouveau compte</a></li>
                     <li class="nav-item active"><a class="nav-link" href="?action=rfid">rfid</a></li>
                 </ul>
             </nav>

@@ -1,3 +1,14 @@
+<?php
+session_start();
+$id_role = $_GET['id_role'] ?? null; // Récupérez la valeur de id_role depuis l'URL
+if (!isset($_SESSION['user_id']) || $_SESSION['id_role'] !== 1) {
+    // L'utilisateur n'est pas authentifié en tant qu'administrateur, redirigez-le vers la page d'authentification
+    $redirection = '?action=authentification'; // Redirection en cas d'erreur
+    header("Location: $redirection");
+    exit;
+}
+?>
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
