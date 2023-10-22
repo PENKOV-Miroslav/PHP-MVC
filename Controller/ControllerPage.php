@@ -100,16 +100,14 @@ class PageController {
     
     
     public function PageInscription() {
-        $pageTitle = 'Inscription';
-        $contentFile = 'View/inscription.php';
-        // Vérifiez si le formulaire a été soumis
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Assurez-vous que l'utilisateur est authentifié en tant qu'administrateur
-            if (isset($_SESSION['id_role']) && $_SESSION['id_role'] == 1) {
-                // Traitement du formulaire d'inscription
+            $id_role = $_POST['id_roleHidden']; // Récupération de l'ID du rôle depuis le champ caché
+    
+            if ($id_role == 1) {
+                // L'ID du rôle 1 correspond à l'administrateur, ce qui signifie que l'utilisateur est autorisé à s'inscrire.
+    
                 $login = $_POST['login'];
                 $mot_de_passe = $_POST['mot_de_passe'];
-                $id_role = $_POST['id_role']; // Assurez-vous que l'id_role est correctement défini.
     
                 $connexion = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
                 $utilisateurDAO = new UtilisateurDAO($connexion);
@@ -119,10 +117,7 @@ class PageController {
     
                     if ($inscriptionReussie) {
                         $_SESSION['success'] = "L'inscription a réussi";
-    
-                        // Rediriger vers la page d'accueil de l'espace admin après inscription réussie
-                        header('Location: ?action=PageEspaceAdmin');
-                        exit;
+                        // Vous pouvez rediriger l'utilisateur vers une autre page si nécessaire.
                     } else {
                         $_SESSION['error'] = "L'inscription a échoué";
                     }
@@ -130,14 +125,15 @@ class PageController {
                     $_SESSION['error'] = $e->getMessage();
                 }
             } else {
-                // Redirigez l'utilisateur vers la page d'authentification
-                header('Location: ?action=authentification');
-                exit;
+                // L'ID du rôle ne correspond pas à un administrateur, affichez un message d'erreur ou traitez l'utilisateur différemment.
+                $_SESSION['error'] = "Vous n'êtes pas autorisé à effectuer cette action en tant qu'administrateur.";
+                // Vous pouvez rediriger l'utilisateur vers une autre page si nécessaire.
             }
         }
-    
-        include 'View/template.php';
     }
+    
+    
+    
     
     
     

@@ -20,7 +20,7 @@ function getRFID(){
 function afficherPageInscription() {
     console.log('Fonction afficherPageInscription exécutée');
     $.ajax({
-        url: 'index.php?action=inscription', // Assurez-vous que c'est le bon chemin d'accès
+        url: 'View/inscription.php', // Assurez-vous que c'est le bon chemin d'accès
         type: 'GET',
         success: function (data) {
             $('#resultatInscription').html(data); // Insérez le contenu de la page d'inscription dans l'élément avec l'ID "resultatInscription"
