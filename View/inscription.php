@@ -50,7 +50,7 @@ if ($id_role === 1) {
     <?php
 } else {
     // L'utilisateur n'est pas authentifié en tant qu'administrateur, affichez un message d'erreur ou redirigez-le vers une autre page.
-    echo "Vous n'êtes pas autorisé à accéder à cette page en tant qu'administrateur.";
+    echo "Vous n'êtes pas autorisé à accéder à cette page";
     // Ou redirigez l'utilisateur :
     // header("Location: ?action=authentification");
 }

@@ -128,7 +128,7 @@ class PageController {
                 }
             } else {
                 // L'ID du rôle ne correspond pas à un administrateur, affichez un message d'erreur ou traitez l'utilisateur différemment.
-                $_SESSION['error'] = "Vous n'êtes pas autorisé à effectuer cette action en tant qu'administrateur.";
+                $_SESSION['error'] = "Vous n'êtes pas autorisé à effectuer cette action";
                 // Vous pouvez rediriger l'utilisateur vers une autre page si nécessaire.
             }
         } else {
