@@ -1,25 +1,25 @@
 <div class="p-3"></div>
 <div class="container">
     <div style="min-height: 100vh;">
-        <form action="traitement_formulaire.php" method="POST">
+        <form method="POST">
             <div class="card p-3 mb-3">
                 <h2 class="card-title">Informations du Capitaine</h2>
 
                 <div class="mb-3">
                     <select id="categorie_formule" name="categorie_formule" class="form-select">
                         <option value="" disabled selected>Sélectionner un circuit</option>
-                        <option value="bol_air">BOL D'AIR (50 €)</option>
-                        <option value="mini_bol_air">MINI BOL D'AIR (40 €)</option>
+                        <option value="1">BOL D'AIR (50 €)</option>
+                        <option value="2">MINI BOL D'AIR (40 €)</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <select id="categorie" name="categorie" class="form-select">
                         <option value="" disabled selected>Sélectionner une catégorie</option>
-                        <option value="homme">Homme</option>
-                        <option value="femme">Femme</option>
-                        <option value="autre">Mixte</option>
-                        <option value="vae">V.A.E</option>
+                        <option value="1">Homme</option>
+                        <option value="2">Femme</option>
+                        <option value="3">Mixte</option>
+                        <option value="4">V.A.E</option>
                     </select>
                 </div>
 
@@ -82,10 +82,24 @@
                 <div class="mb-3">
                     <input type="tel" id="tel_capitaine" name="tel_capitaine" class="form-control" placeholder="N° de tél. Capitaine" required>
                 </div>
-
+                <div class="mb-3">
+                    <input type="text" id="ville_capitaine" name="ville_capitaine" class="form-control" placeholder="Ville du Capitaine" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="cp_capitaine" name="cp_capitaine" class="form-control" placeholder="Code Postale de la Ville du Capitaine" required>
+                </div>
+                <div class="p-3"></div>
                 <div class="mb-3">
                     <input type="tel" id="tel_equipier" name="tel_equipier" class="form-control" placeholder="N° de tél. Équipier" required>
                 </div>
+
+                <div class="mb-3">
+                    <input type="text" id="ville_equipier" name="ville_equipier" class="form-control" placeholder="Ville de l' équipier" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="cp_equipier" name="cp_equipier" class="form-control" placeholder="Code Postale de la Ville de l' équipier" required>
+                </div>
+            </div>
 
                 <p>Joindre les certificats médicaux et votre règlement à l'ordre de CKC SAINT-VICTURNIEN à votre Bulletin d'inscription,
                     à retourner à : M. Bouby - 2 rue des Étangs - La Chapelle Blanche - 87420 St Victurnien</p>
@@ -93,7 +107,7 @@
                 <h2>Renseignements</h2>
                 <p>06 35 92 52 77 - 06 82 92 77 84</p>
                 <p><a href="www.ckc-saintvicturnien.fr">www.ckc-saintvicturnien.fr</a> - <a href="mailto:contact@ckc-saintvicturnien.fr">contact@ckc-saintvicturnien.fr</a></p>
-            </div>
+            
             <button type="submit" class="btn btn-primary">Envoyer</button>
         </form>
     </div>

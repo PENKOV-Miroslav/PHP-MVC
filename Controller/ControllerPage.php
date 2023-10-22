@@ -10,9 +10,56 @@ class PageController {
     }
 
     public function TraitementFormulaireInscription() {
-        $pageTitle = 'S\'inscrire au raid';
-        $contentFile = 'View/bulletin_inscription.php';
-        include 'View/template.php';
+            $pageTitle = 'S\'inscrire au raid';
+            $contentFile = 'View/bulletin_inscription.php';
+            include 'View/template.php';
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Récupérer les données soumises par le formulaire
+            $categorie_formule = $_POST["categorie_formule"];
+            $categorie = $_POST["categorie"];
+            $nom = $_POST["nom"];
+            $prenom = $_POST["prenom"];
+            $date_naissance = $_POST["date_naissance"];
+            $adresse = $_POST["adresse"];
+            $club = $_POST["club"];
+            $email = $_POST["email"];
+            $tel_capitaine = $_POST["tel_capitaine"];
+            $ville_capitaine = $_POST["ville_capitaine"];
+            $cp_capitaine = $_POST["cp_capitaine"];
+            
+            $nom_equipier = $_POST["nom_equipier"];
+            $prenom_equipier = $_POST["prenom_equipier"];
+            $date_naissance_equipier = $_POST["date_naissance_equipier"];
+            $adresse_equipier = $_POST["adresse_equipier"];
+            $club_equipier = $_POST["club_equipier"];
+            $email_equipier = $_POST["email_equipier"];
+            $tel_equipier = $_POST["tel_equipier"];
+            $ville_equipier = $_POST["ville_equipier"];
+            $cp_equipier = $_POST["cp_equipier"];
+            
+            // Vous pouvez effectuer des validations ici, par exemple :
+            if (empty($nom) || empty($prenom) || empty($email) || empty($tel_capitaine)) {
+                // Si des champs obligatoires sont vides, vous pouvez afficher un message d'erreur.
+                echo "Veuillez remplir tous les champs obligatoires.";
+            } else {
+                // Si toutes les validations sont réussies, vous pouvez traiter les données.
+                // Par exemple,enregistrer les données dans une base de données, etc.
+                $connexion = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
+                $participantDAO = new ParticipantDAO($connexion);
+                
+                $participantCap = new Participant(
+                    $nom, $prenom, $date_naissance, $adresse, $cp_capitaine, $ville_capitaine, $tel_capitaine, $club, $email
+                );
+                $participantEqu = new Participant(
+                    $nom_equipier, $prenom_equipier, $date_naissance_equipier, $adresse_equipier, $cp_equipier, $ville_equipier, $tel_equipier, $club_equipier, $email_equipier
+                );
+                
+                $participant1 = $participantDAO->ajouterParticipant($participantCap);
+                $participant2 = $participantDAO->ajouterParticipant($participantEqu);
+                exit;
+            }
+        }
     }
 
     public function PageRFID() {
