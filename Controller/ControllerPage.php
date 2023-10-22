@@ -103,12 +103,12 @@ class PageController {
     
 
     public function PageInscription() {
-        // Vérifiez le rôle de l'utilisateur (vous devez avoir cette information dans la session après l'authentification)
-        if (isset($_SESSION['id_role']) && $_SESSION['id_role'] == 1) {
-            $pageTitle = 'Inscription';
-            $contentFile = 'View/inscription.php';
-    
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $pageTitle = 'Inscription';
+        $contentFile = 'View/inscription.php';
+        // Vérifiez si le formulaire a été soumis
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Assurez-vous que l'utilisateur est authentifié en tant qu'administrateur
+            if (isset($_SESSION['id_role']) && $_SESSION['id_role'] == 1) {
                 // Traitement du formulaire d'inscription
                 $login = $_POST['login'];
                 $mot_de_passe = $_POST['mot_de_passe'];
@@ -122,7 +122,7 @@ class PageController {
     
                     if ($inscriptionReussie) {
                         $_SESSION['success'] = "L'inscription a réussi";
-                        
+    
                         // Rediriger vers la page d'accueil de l'espace admin après inscription réussie
                         header('Location: ?action=PageEspaceAdmin');
                         exit;
@@ -132,14 +132,16 @@ class PageController {
                 } catch (Exception $e) {
                     $_SESSION['error'] = $e->getMessage();
                 }
+            } else {
+                // Redirigez l'utilisateur vers la page d'authentification
+                header('Location: ?action=authentification');
+                exit;
             }
-        } else {
-            // Redirigez l'utilisateur vers une page d'erreur ou une autre page autorisée
-            header('Location: ?action=authentification');
-            exit;
         }
+    
         include 'View/template.php';
     }
+    
     
     
     
