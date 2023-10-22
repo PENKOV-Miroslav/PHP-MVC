@@ -99,9 +99,6 @@ class PageController {
     }
     
     
-      
-    
-
     public function PageInscription() {
         $pageTitle = 'Inscription';
         $contentFile = 'View/inscription.php';
