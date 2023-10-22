@@ -118,6 +118,8 @@ class PageController {
                     if ($inscriptionReussie) {
                         $_SESSION['success'] = "L'inscription a réussi";
                         // Vous pouvez rediriger l'utilisateur vers une autre page si nécessaire.
+                        $redirection = '?action=PageEspaceAdmin'; // Redirection en cas d'erreur
+                        header("Location: $redirection");
                     } else {
                         $_SESSION['error'] = "L'inscription a échoué";
                     }
@@ -129,6 +131,10 @@ class PageController {
                 $_SESSION['error'] = "Vous n'êtes pas autorisé à effectuer cette action en tant qu'administrateur.";
                 // Vous pouvez rediriger l'utilisateur vers une autre page si nécessaire.
             }
+        } else {
+            $_SESSION['error'] = "Vous n'êtes pas autorisé à effectuer cette action";
+            $redirection = '?action=authentification'; // Redirection en cas d'erreur
+            header("Location: $redirection");
         }
     }
     
