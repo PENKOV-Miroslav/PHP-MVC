@@ -101,14 +101,14 @@ class PageController {
     
     public function PageInscription() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id_role = $_POST['id_roleHidden']; // Récupération de l'ID du rôle depuis le champ caché
+            $id_roleHidden = $_POST['id_roleHidden']; // Récupération de l'ID du rôle depuis le champ caché
     
-            if ($id_role == 1) {
+            if ($id_roleHidden == 1) {
                 // L'ID du rôle 1 correspond à l'administrateur, ce qui signifie que l'utilisateur est autorisé à s'inscrire.
     
                 $login = $_POST['login'];
                 $mot_de_passe = $_POST['mot_de_passe'];
-    
+                $id_role = $_POST['id_role']; // Récupération de l'ID du rôle depuis le champ caché
                 $connexion = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
                 $utilisateurDAO = new UtilisateurDAO($connexion);
     
