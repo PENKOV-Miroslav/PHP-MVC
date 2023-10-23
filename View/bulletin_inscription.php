@@ -1,9 +1,23 @@
+<?php
+session_start();
+
+// Initialisez des variables pour stocker les valeurs de session
+$id_role = null;
+
+if (isset($_SESSION['id_role'])) {
+    $id_role = $_SESSION['id_role'];
+}
+
+if ($id_role === 2) {
+    // L'utilisateur est authentifié en tant qu'administrateur, affichez le formulaire d'inscription.
+    ?>
 <div class="p-3"></div>
 <div class="container">
     <div style="min-height: 100vh;">
-        <form method="POST">
+        <form method="POST" action="?action=bulletin_inscription">
             <div class="card p-3 mb-3">
                 <h2 class="card-title">Informations du Capitaine</h2>
+                <input type="hidden" name="id_roleHidden" value="<?php echo $_SESSION['id_role']; ?>">
 
                 <div class="mb-3">
                     <select id="categorie_formule" name="categorie_formule" class="form-select">
@@ -101,14 +115,14 @@
                 </div>
             </div>
 
-                <p>Joindre les certificats médicaux et votre règlement à l'ordre de CKC SAINT-VICTURNIEN à votre Bulletin d'inscription,
-                    à retourner à : M. Bouby - 2 rue des Étangs - La Chapelle Blanche - 87420 St Victurnien</p>
-
-                <h2>Renseignements</h2>
-                <p>06 35 92 52 77 - 06 82 92 77 84</p>
-                <p><a href="www.ckc-saintvicturnien.fr">www.ckc-saintvicturnien.fr</a> - <a href="mailto:contact@ckc-saintvicturnien.fr">contact@ckc-saintvicturnien.fr</a></p>
-            
             <button type="submit" class="btn btn-primary">Envoyer</button>
         </form>
     </div>
 </div>
+<?php
+} else {
+    // L'utilisateur n'est pas authentifié en tant qu'administrateur, affichez un message d'erreur ou redirigez-le vers une autre page.
+    echo "Vous n'êtes pas autorisé à accéder à cette page";
+    // Ou redirigez l'utilisateur :
+    // header("Location: ?action=authentification");
+}

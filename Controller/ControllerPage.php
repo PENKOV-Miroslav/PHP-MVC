@@ -10,11 +10,14 @@ class PageController {
     }
 
     public function TraitementFormulaireInscription() {
-            $pageTitle = 'S\'inscrire au raid';
-            $contentFile = 'View/bulletin_inscription.php';
-            include 'View/template.php';
+            //$pageTitle = 'S\'inscrire au raid';
+            //$contentFile = 'View/bulletin_inscription.php';
+            //include 'View/template.php';
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id_roleHidden = $_POST['id_roleHidden']; // Récupération de l'ID du rôle depuis le champ caché
+    
+            if ($id_roleHidden == 2) {
             // Récupérer les données soumises par le formulaire
             $categorie_formule = $_POST["categorie_formule"];
             $categorie = $_POST["categorie"];
@@ -38,13 +41,13 @@ class PageController {
             $ville_equipier = $_POST["ville_equipier"];
             $cp_equipier = $_POST["cp_equipier"];
             
-            // Vous pouvez effectuer des validations ici, par exemple :
+            // On va effectuer des validations ici pour les champs obligatoires
             if (empty($nom) || empty($prenom) || empty($email) || empty($tel_capitaine)) {
                 // Si des champs obligatoires sont vides, vous pouvez afficher un message d'erreur.
                 echo "Veuillez remplir tous les champs obligatoires.";
             } else {
                 // Si toutes les validations sont réussies, vous pouvez traiter les données.
-                // Par exemple,enregistrer les données dans une base de données, etc.
+                // Par exemple,enregistrer les données dans une base de données
                 $connexion = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
                 $participantDAO = new ParticipantDAO($connexion);
                 
@@ -59,8 +62,13 @@ class PageController {
                 $participant2 = $participantDAO->ajouterParticipant($participantEqu);
                 exit;
             }
+        } else{
+            $_SESSION['error'] = "Vous n'êtes pas autorisé à effectuer cette action";
+            $redirection = '?action=authentification'; // Redirection en cas d'erreur
+            header("Location: $redirection");
         }
     }
+}
 
     public function PageRFID() {
         $pageTitle = 'Pointage';
