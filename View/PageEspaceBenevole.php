@@ -10,7 +10,7 @@
     <button id="btnAfficherInscription" onclick="afficherPageInscription()">Inscrire un nouveau compte</button>
 <div id="resultatInscription"></div>
 
-    <a href="?action=deconnexion">Déconnexion</a>
+    <a class="btn btn-danger" href="?action=deconnexion">Déconnexion</a>
     <?php
         } else {
             // L'utilisateur n'est pas authentifié en tant que Benevole, redirigez-le vers la page d'authentification
