@@ -60,6 +60,13 @@ if ($id_role === 2) {
                 <div class="mb-3">
                     <input type="email" id="email" name="email" class="form-control" placeholder="Adresse mail" required>
                 </div>
+                <div class="mb-3">
+                    <input type="text" id="certificat_valider_participant_capitaine" name="certificat_valider_participant_capitaine" class="form-control" placeholder="Certificat validé du Capitaine" required>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" id="id_rfid_capitaine" name="id_rfid_capitaine" class="form-control" placeholder="ID RFID du Capitaine" required>
+                </div>
             </div>
             <div class="p-3"></div>
             <div class="card p-3 mb-3">
@@ -88,6 +95,13 @@ if ($id_role === 2) {
                 <div class="mb-3">
                     <input type="email" id="email_equipier" name="email_equipier" class="form-control" placeholder="Adresse mail" required>
                 </div>
+                <div class="mb-3">
+                    <input type="text" id="certificat_valider_participant_equipier" name="certificat_valider_participant_equipier" class="form-control" placeholder="Certificat validé de l'Equipier" required>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" id="id_rfid_equipier" name="id_rfid_equipier" class="form-control" placeholder="ID RFID de l'Equipier" required>
+                </div>
             </div>
             <div class="p-3"></div>
             <div class="card p-3 mb-3">
@@ -113,6 +127,7 @@ if ($id_role === 2) {
                 <div class="mb-3">
                     <input type="text" id="cp_equipier" name="cp_equipier" class="form-control" placeholder="Code Postale de la Ville de l' équipier" required>
                 </div>
+
             </div>
 
             <button type="submit" class="btn btn-primary">Envoyer</button>

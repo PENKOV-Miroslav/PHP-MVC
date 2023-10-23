@@ -30,6 +30,8 @@ class PageController {
             $tel_capitaine = $_POST["tel_capitaine"];
             $ville_capitaine = $_POST["ville_capitaine"];
             $cp_capitaine = $_POST["cp_capitaine"];
+            $certificat_valider_participant = $_POST['certificat_valider_participant_capitaine'];
+            $id_rfid = $_POST['id_rfid_capitaine'];
             
             $nom_equipier = $_POST["nom_equipier"];
             $prenom_equipier = $_POST["prenom_equipier"];
@@ -40,6 +42,8 @@ class PageController {
             $tel_equipier = $_POST["tel_equipier"];
             $ville_equipier = $_POST["ville_equipier"];
             $cp_equipier = $_POST["cp_equipier"];
+            $certificat_valider_participant = $_POST['certificat_valider_participant_equipier'];
+            $id_rfid = $_POST['id_rfid_equipier'];
             
             // On va effectuer des validations ici pour les champs obligatoires
             if (empty($nom) || empty($prenom) || empty($email) || empty($tel_capitaine)) {
