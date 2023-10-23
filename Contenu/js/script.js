@@ -45,5 +45,19 @@ function afficherPageInscriptionParticipant() {
     });
 }
 
+function afficherPageRFID() {
+    console.log('Fonction afficherPageRFID exécutée');
+    $.ajax({
+        url: 'View/pointageRfid.php', // Assurez-vous que c'est le bon chemin d'accès
+        type: 'GET',
+        success: function (data) {
+            $('#resultatInscription').html(data); // Insérez le contenu de la page d'inscription dans l'élément avec l'ID "resultatInscription"
+        },
+        error: function (xhr, status, error) {
+            console.log(error); // En cas d'erreur, affichez l'erreur dans la console
+        }
+    });
+}
+
 
 

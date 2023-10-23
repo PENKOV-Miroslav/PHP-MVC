@@ -71,9 +71,9 @@ class PageController {
 }
 
     public function PageRFID() {
-        $pageTitle = 'Pointage';
-        $contentFile = 'View/pointageRfid.php';
-        include 'View/template.php';
+        //$pageTitle = 'Pointage';
+        //$contentFile = 'View/pointageRfid.php';
+        //include 'View/template.php';
     }
 
     public function PageEspaceAdmin(){
