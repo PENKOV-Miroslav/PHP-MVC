@@ -9,7 +9,7 @@ if (isset($_SESSION['id_role'])) {
 }
 
 if ($id_role === 2) {
-    // L'utilisateur est authentifié en tant qu'administrateur, affichez le formulaire d'inscription.
+    // L'utilisateur est authentifié, affichez le formulaire d'inscription.
     ?>
 <div class="p-3"></div>
 <div class="container">
