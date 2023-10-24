@@ -10,8 +10,8 @@ class EpreuveDAO {
     public function ajouterEpreuve(Epreuve $epreuve) {
         $sql = "INSERT INTO epreuves (libelle_epreuve, id_circuit) VALUES (:libelle_epreuve, :id_circuit)";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':libelle_epreuve', $epreuve->getLibelle_epreuve());
-        $stmt->bindParam(':id_circuit', $epreuve->getId_circuit());
+        $stmt->bindValue(':libelle_epreuve', $epreuve->getLibelle_epreuve());
+        $stmt->bindValue(':id_circuit', $epreuve->getId_circuit());
 
         try {
             $stmt->execute();
@@ -25,9 +25,9 @@ class EpreuveDAO {
     public function modifierEpreuve(Epreuve $epreuve) {
         $sql = "UPDATE epreuves SET libelle_epreuve = :libelle_epreuve, id_circuit = :id_circuit WHERE id_epreuve = :id_epreuve";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':id_epreuve', $epreuve->getId_epreuve());
-        $stmt->bindParam(':libelle_epreuve', $epreuve->getLibelle_epreuve());
-        $stmt->bindParam(':id_circuit', $epreuve->getId_circuit());
+        $stmt->bindValue(':id_epreuve', $epreuve->getId_epreuve());
+        $stmt->bindValue(':libelle_epreuve', $epreuve->getLibelle_epreuve());
+        $stmt->bindValue(':id_circuit', $epreuve->getId_circuit());
 
         try {
             $stmt->execute();

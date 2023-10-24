@@ -10,8 +10,8 @@ class CircuitDAO {
     public function ajouterCircuit(Circuit $circuit) {
         $sql = "INSERT INTO circuits (libelle_circuit, id_raid) VALUES (:libelle_circuit, :id_raid)";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':libelle_circuit', $circuit->getLibelle_circuit());
-        $stmt->bindParam(':id_raid', $circuit->getId_raid());
+        $stmt->bindValue(':libelle_circuit', $circuit->getLibelle_circuit());
+        $stmt->bindValue(':id_raid', $circuit->getId_raid());
 
         try {
             $stmt->execute();
@@ -25,9 +25,9 @@ class CircuitDAO {
     public function modifierCircuit(Circuit $circuit) {
         $sql = "UPDATE circuits SET libelle_circuit = :libelle_circuit, id_raid = :id_raid WHERE id_circuit = :id_circuit";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':id_circuit', $circuit->getId_circuit());
-        $stmt->bindParam(':libelle_circuit', $circuit->getLibelle_circuit());
-        $stmt->bindParam(':id_raid', $circuit->getId_raid());
+        $stmt->bindValue(':id_circuit', $circuit->getId_circuit());
+        $stmt->bindValue(':libelle_circuit', $circuit->getLibelle_circuit());
+        $stmt->bindValue(':id_raid', $circuit->getId_raid());
 
         try {
             $stmt->execute();

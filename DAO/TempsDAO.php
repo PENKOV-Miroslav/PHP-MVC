@@ -12,9 +12,9 @@ class TempsDAO {
     public function ajouterTemps(Temps $temps) {
         $sql = "INSERT INTO temps (duree_temps, id_participant, id_epreuve) VALUES (:duree_temps, :id_participant, :id_epreuve)";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':duree_temps', $temps->getDuree_temps());
-        $stmt->bindParam(':id_participant', $temps->getId_participant());
-        $stmt->bindParam(':id_epreuve', $temps->getId_epreuve());
+        $stmt->bindValue(':duree_temps', $temps->getDuree_temps());
+        $stmt->bindValue(':id_participant', $temps->getId_participant());
+        $stmt->bindValue(':id_epreuve', $temps->getId_epreuve());
 
         try {
             $stmt->execute();
@@ -28,10 +28,10 @@ class TempsDAO {
     public function modifierTemps(Temps $temps) {
         $sql = "UPDATE temps SET duree_temps = :duree_temps, id_participant = :id_participant, id_epreuve = :id_epreuve WHERE id_temps = :id_temps";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':id_temps', $temps->getId_temps());
-        $stmt->bindParam(':duree_temps', $temps->getDuree_temps());
-        $stmt->bindParam(':id_participant', $temps->getId_participant());
-        $stmt->bindParam(':id_epreuve', $temps->getId_epreuve());
+        $stmt->bindValue(':id_temps', $temps->getId_temps());
+        $stmt->bindValue(':duree_temps', $temps->getDuree_temps());
+        $stmt->bindValue(':id_participant', $temps->getId_participant());
+        $stmt->bindValue(':id_epreuve', $temps->getId_epreuve());
 
         try {
             $stmt->execute();

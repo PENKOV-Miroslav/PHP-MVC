@@ -8,6 +8,9 @@ class UtilisateurDAO {
     public function __construct(ConnexionBDD $connexion) {
         $this->connexion = $connexion;
     }
+
+
+    /******************* Methode pour l'autentfication et ajout de nouveaux utilisateurs  *******************/
     
     public function authentifierUtilisateur($login, $mot_de_passe) {
         $sql = "SELECT * FROM utilisateur WHERE login_utilisateur = :login_utilisateur";
@@ -59,31 +62,16 @@ class UtilisateurDAO {
     
 
 
-    /*********************************** CRUD *******************************************/
+    /*********************************** RUD *******************************************/
 
-    public function ajouterUtilisateur(Utilisateur $utilisateur) {
-        $sql = "INSERT INTO utilisateur (login_utilisateur, mot_de_passe_utilisateur, id_role) VALUES (:login_utilisateur, :mot_de_passe_utilisateur, :id_role)";
-        $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':login_utilisateur', $utilisateur->getLogin_utilisateur());
-        $stmt->bindParam(':mot_de_passe_utilisateur', $utilisateur->getMot_de_passe_utilisateur());
-        $stmt->bindParam(':id_role', $utilisateur->getId_role());
-
-        try {
-            $stmt->execute();
-            return true;
-        } catch (PDOException $e) {
-            // Gérer les erreurs d'insertion
-            return false;
-        }
-    }
 
     public function modifierUtilisateur(Utilisateur $utilisateur) {
         $sql = "UPDATE utilisateur SET login_utilisateur = :login_utilisateur, mot_de_passe_utilisateur = :mot_de_passe_utilisateur, id_role = :id_role WHERE id_utilisateur = :id_utilisateur";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':id_utilisateur', $utilisateur->getId_utilisateur());
-        $stmt->bindParam(':login_utilisateur', $utilisateur->getLogin_utilisateur());
-        $stmt->bindParam(':mot_de_passe_utilisateur', $utilisateur->getMot_de_passe_utilisateur());
-        $stmt->bindParam(':id_role', $utilisateur->getId_role());
+        $stmt->bindValue(':id_utilisateur', $utilisateur->getId_utilisateur());
+        $stmt->bindValue(':login_utilisateur', $utilisateur->getLogin_utilisateur());
+        $stmt->bindValue(':mot_de_passe_utilisateur', $utilisateur->getMot_de_passe_utilisateur());
+        $stmt->bindValue(':id_role', $utilisateur->getId_role());
 
         try {
             $stmt->execute();

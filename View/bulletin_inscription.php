@@ -61,11 +61,11 @@ if ($id_role === 2) {
                     <input type="email" id="email" name="email" class="form-control" placeholder="Adresse mail" required>
                 </div>
                 <div class="mb-3">
-                    <input type="text" id="certificat_valider_participant_capitaine" name="certificat_valider_participant_capitaine" class="form-control" placeholder="Certificat validé du Capitaine" required>
+                    <input type="text" id="certificat_valider_participant_capitaine" name="certificat_valider_participant_capitaine" class="form-control" placeholder="Certificat validé du Capitaine" >
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" id="id_rfid_capitaine" name="id_rfid_capitaine" class="form-control" placeholder="ID RFID du Capitaine" required>
+                    <input type="text" id="id_rfid_capitaine" name="id_rfid_capitaine" class="form-control" placeholder="ID RFID du Capitaine">
                 </div>
             </div>
             <div class="p-3"></div>
@@ -96,11 +96,11 @@ if ($id_role === 2) {
                     <input type="email" id="email_equipier" name="email_equipier" class="form-control" placeholder="Adresse mail" required>
                 </div>
                 <div class="mb-3">
-                    <input type="text" id="certificat_valider_participant_equipier" name="certificat_valider_participant_equipier" class="form-control" placeholder="Certificat validé de l'Equipier" required>
+                    <input type="text" id="certificat_valider_participant_equipier" name="certificat_valider_participant_equipier" class="form-control" placeholder="Certificat validé de l'Equipier">
                 </div>
 
                 <div class="mb-3">
-                    <input type="text" id="id_rfid_equipier" name="id_rfid_equipier" class="form-control" placeholder="ID RFID de l'Equipier" required>
+                    <input type="text" id="id_rfid_equipier" name="id_rfid_equipier" class="form-control" placeholder="ID RFID de l'Equipier">
                 </div>
             </div>
             <div class="p-3"></div>

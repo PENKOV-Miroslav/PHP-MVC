@@ -16,10 +16,10 @@ public function create(NomDeLaClasse $objet) {
         $stmt = $this->connexion->prepare($sql);
 
         // Liaison des paramètres nommés avec les valeurs de l'objet
-        $stmt->bindParam(':attribut1', $objet->getAttribut1());
-        $stmt->bindParam(':attribut2', $objet->getAttribut2());
-        $stmt->bindParam(':attribut3', $objet->getAttribut3());
-        $stmt->bindParam(':attribut4', $objet->getAttribut4());
+        $stmt->bindValue(':attribut1', $objet->getAttribut1());
+        $stmt->bindValue(':attribut2', $objet->getAttribut2());
+        $stmt->bindValue(':attribut3', $objet->getAttribut3());
+        $stmt->bindValue(':attribut4', $objet->getAttribut4());
 
         // Exécution de la requête
         $stmt->execute();
@@ -59,13 +59,13 @@ public function update(NomDeLaClasse $objet) {
         $stmt = $this->connexion->prepare($sql);
 
         // Liaison des paramètres nommés avec les valeurs de l'objet
-        $stmt->bindParam(':attribut1', $objet->getAttribut1());
-        $stmt->bindParam(':attribut2', $objet->getAttribut2());
-        $stmt->bindParam(':attribut3', $objet->getAttribut3());
-        $stmt->bindParam(':attribut4', $objet->getAttribut4());
+        $stmt->bindValue(':attribut1', $objet->getAttribut1());
+        $stmt->bindValue(':attribut2', $objet->getAttribut2());
+        $stmt->bindValue(':attribut3', $objet->getAttribut3());
+        $stmt->bindValue(':attribut4', $objet->getAttribut4());
 
         // Liaison du paramètre nommé avec l'ID de l'objet
-        $stmt->bindParam(':id', $objet->getId()); // Supposons que votre classe ait une méthode getId() pour obtenir l'ID
+        $stmt->bindValue(':id', $objet->getId()); // Supposons que votre classe ait une méthode getId() pour obtenir l'ID
 
         // Exécution de la requête
         $stmt->execute();

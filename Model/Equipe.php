@@ -8,12 +8,12 @@ class Equipe{
     private $id_categorie;
 
     // Constructeur
-    public function __construct($id_equipe,$num_dossard_equipe,$id_circuit,$id_categorie) {
-        $this->id_equipe = $id_equipe;
+    public function __construct($num_dossard_equipe,$id_circuit,$id_categorie) {
         $this->num_dossard_equipe = $num_dossard_equipe;
         $this->id_circuit = $id_circuit;
         $this->id_categorie = $id_categorie;
     }
+
     // Faire les Getters et Setters
     public function getId_equipe() {
         return $this->id_equipe;

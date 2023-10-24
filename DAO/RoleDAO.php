@@ -11,7 +11,7 @@ class RoleDAO {
     public function ajouterRole(Role $role) {
         $sql = "INSERT INTO role (libelle_role) VALUES (:libelle_role)";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':libelle_role', $role->getLibelle_role());
+        $stmt->bindValue(':libelle_role', $role->getLibelle_role());
 
         try {
             $stmt->execute();
@@ -25,8 +25,8 @@ class RoleDAO {
     public function modifierRole(Role $role) {
         $sql = "UPDATE role SET libelle_role = :libelle_role WHERE id_role = :id_role";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':id_role', $role->getId_role());
-        $stmt->bindParam(':libelle_role', $role->getLibelle_role());
+        $stmt->bindValue(':id_role', $role->getId_role());
+        $stmt->bindValue(':libelle_role', $role->getLibelle_role());
 
         try {
             $stmt->execute();

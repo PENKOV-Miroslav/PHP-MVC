@@ -10,7 +10,7 @@ class RaidDAO {
     public function ajouterRaid(Raid $raid) {
         $sql = "INSERT INTO raid (libelle_raid) VALUES (:libelle_raid)";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':libelle_raid', $raid->getLibelle_raid());
+        $stmt->bindValue(':libelle_raid', $raid->getLibelle_raid());
 
         try {
             $stmt->execute();
@@ -24,8 +24,8 @@ class RaidDAO {
     public function modifierRaid(Raid $raid) {
         $sql = "UPDATE raid SET libelle_raid = :libelle_raid WHERE id_raid = :id_raid";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':id_raid', $raid->getId_raid());
-        $stmt->bindParam(':libelle_raid', $raid->getLibelle_raid());
+        $stmt->bindValue(':id_raid', $raid->getId_raid());
+        $stmt->bindValue(':libelle_raid', $raid->getLibelle_raid());
 
         try {
             $stmt->execute();

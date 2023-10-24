@@ -19,8 +19,7 @@ class Participant{
     private $id_utilisateur;
 
     // Constructeur de l'objet Participant
-    public function __construct($id_participant, $nom_participant,$prenom_participant,$date_naissance_participant,$adresse_participant,$code_postal_participant,$ville_participant,$telephone_participant,$certificat_valider_participant,$club_participant,$id_rfid,$email_participant,$id_equipe,$id_utilisateur) {
-        $this->id_participant = $id_participant;
+    public function __construct($nom_participant,$prenom_participant,$date_naissance_participant,$adresse_participant,$code_postal_participant,$ville_participant,$telephone_participant,$certificat_valider_participant,$club_participant,$id_rfid,$email_participant,$id_equipe) {
         $this->nom_participant = $nom_participant;
         $this->prenom_participant = $prenom_participant;
         $this->date_naissance_participant = $date_naissance_participant;
@@ -33,7 +32,6 @@ class Participant{
         $this->id_rfid = $id_rfid;
         $this->email_participant = $email_participant;
         $this->id_equipe = $id_equipe;
-        $this->id_utilisateur = $id_utilisateur;
     }
 
     //getters et setters circuit

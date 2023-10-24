@@ -21,6 +21,8 @@ class PageController {
             // Récupérer les données soumises par le formulaire
             $categorie_formule = $_POST["categorie_formule"];
             $categorie = $_POST["categorie"];
+
+            // Elements spécifique du capitaine
             $nom = $_POST["nom"];
             $prenom = $_POST["prenom"];
             $date_naissance = $_POST["date_naissance"];
@@ -30,9 +32,10 @@ class PageController {
             $tel_capitaine = $_POST["tel_capitaine"];
             $ville_capitaine = $_POST["ville_capitaine"];
             $cp_capitaine = $_POST["cp_capitaine"];
-            $certificat_valider_participant = $_POST['certificat_valider_participant_capitaine'];
-            $id_rfid = $_POST['id_rfid_capitaine'];
+            $certificat_valider_participant_cap = $_POST['certificat_valider_participant_capitaine'];
+            $id_rfid_cap = $_POST['id_rfid_capitaine'];
             
+            // Elements spécifique de l' equipier
             $nom_equipier = $_POST["nom_equipier"];
             $prenom_equipier = $_POST["prenom_equipier"];
             $date_naissance_equipier = $_POST["date_naissance_equipier"];
@@ -44,6 +47,7 @@ class PageController {
             $cp_equipier = $_POST["cp_equipier"];
             $certificat_valider_participant = $_POST['certificat_valider_participant_equipier'];
             $id_rfid = $_POST['id_rfid_equipier'];
+
             
             // On va effectuer des validations ici pour les champs obligatoires
             if (empty($nom) || empty($prenom) || empty($email) || empty($tel_capitaine)) {
@@ -53,17 +57,26 @@ class PageController {
                 // Si toutes les validations sont réussies, vous pouvez traiter les données.
                 // Par exemple,enregistrer les données dans une base de données
                 $connexion = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
+                $equipeDAO = new EquipeDAO($connexion);
+                $equipe = new Equipe(null,$categorie_formule, $categorie);
+                $equipes = $equipeDAO->ajouterEquipe($equipe);
+
+                $id_equipe= $connexion->connect()->lastInsertId();
+
                 $participantDAO = new ParticipantDAO($connexion);
-                
+
                 $participantCap = new Participant(
-                    $nom, $prenom, $date_naissance, $adresse, $cp_capitaine, $ville_capitaine, $tel_capitaine, $club, $email
+                    $nom, $prenom, $date_naissance, $adresse, $cp_capitaine, $ville_capitaine, $tel_capitaine,
+                     $certificat_valider_participant_cap, $club ,$id_rfid_cap, $email, $id_equipe
                 );
                 $participantEqu = new Participant(
-                    $nom_equipier, $prenom_equipier, $date_naissance_equipier, $adresse_equipier, $cp_equipier, $ville_equipier, $tel_equipier, $club_equipier, $email_equipier
+                   $nom_equipier, $prenom_equipier, $date_naissance_equipier, $adresse_equipier, $cp_equipier, $ville_equipier, $tel_equipier,
+                   $certificat_valider_participant, $club_equipier, $id_rfid, $email_equipier, $id_equipe
                 );
                 
                 $participant1 = $participantDAO->ajouterParticipant($participantCap);
                 $participant2 = $participantDAO->ajouterParticipant($participantEqu);
+                $_SESSION['succes'] = "Participant ajouter";
                 exit;
             }
         } else{

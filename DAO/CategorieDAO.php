@@ -10,7 +10,7 @@ class CategorieDAO {
     public function ajouterCategorie(Categorie $categorie) {
         $sql = "INSERT INTO categories (libelle_categorie) VALUES (:libelle_categorie)";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':libelle_categorie', $categorie->getLibelle_categorie());
+        $stmt->bindValue(':libelle_categorie', $categorie->getLibelle_categorie());
 
         try {
             $stmt->execute();
@@ -24,8 +24,8 @@ class CategorieDAO {
     public function modifierCategorie(Categorie $categorie) {
         $sql = "UPDATE categories SET libelle_categorie = :libelle_categorie WHERE id_categorie = :id_categorie";
         $stmt = $this->connexion->connect()->prepare($sql);
-        $stmt->bindParam(':id_categorie', $categorie->getId_categorie());
-        $stmt->bindParam(':libelle_categorie', $categorie->getLibelle_categorie());
+        $stmt->bindValue(':id_categorie', $categorie->getId_categorie());
+        $stmt->bindValue(':libelle_categorie', $categorie->getLibelle_categorie());
 
         try {
             $stmt->execute();
