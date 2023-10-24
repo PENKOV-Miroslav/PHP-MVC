@@ -39,7 +39,7 @@
     <!-- Charger votre propre fichier JavaScript ici -->
     <script src="Contenu/js/script.js"></script>
 
-    <footer class="bg-dark text-light py-3 mt-4">
+    <footer class="bg-dark text-light py-3 mt-4 fixed-bottom">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">

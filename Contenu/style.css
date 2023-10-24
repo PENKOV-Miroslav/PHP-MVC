@@ -6,4 +6,9 @@
 
 .col-md-8{
     width: 100%;
+    /* min-height:681px; */
+}
+
+main{
+    margin-bottom: 90px;
 }

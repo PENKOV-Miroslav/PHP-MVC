@@ -2,10 +2,10 @@
         <h1>Tableau des record</h1>
         <ul class="nav nav-tabs" id="onglets" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Equipe</a>
+                <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Bol d'air</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Individuel</a>
+                <a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Mini Bol d'air</a>
             </li>
         </ul>
         <div class="tab-content" id="ongletsContent">
