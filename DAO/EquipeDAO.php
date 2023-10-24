@@ -9,13 +9,16 @@ class EquipeDAO {
 
     public function ajouterEquipe(Equipe $equipe) {
         $sql = "INSERT INTO equipe (num_dossard_equipe, id_circuit, id_categorie) VALUES (:num_dossard_equipe, :id_circuit, :id_categorie)";
-        $stmt = $this->connexion->connect()->prepare($sql);
+        $con = $this->connexion->connect();
+        $stmt = $con->prepare($sql);
         $stmt->bindValue(':num_dossard_equipe', $equipe->getNum_dossard_equipe());
         $stmt->bindValue(':id_circuit', $equipe->getId_circuit());
         $stmt->bindValue(':id_categorie', $equipe->getId_categorie());
 
         try {
             $stmt->execute();
+            $id_equipe = $con->lastInsertId();
+            $equipe->setId_equipe($con->lastInsertId());
             return true;
         } catch (PDOException $e) {
             // Gérer les erreurs d'insertion

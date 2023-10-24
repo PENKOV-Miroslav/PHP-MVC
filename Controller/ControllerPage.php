@@ -27,26 +27,26 @@ class PageController {
             $prenom = $_POST["prenom"];
             $date_naissance = $_POST["date_naissance"];
             $adresse = $_POST["adresse"];
-            $club = $_POST["club"];
+            $club = !empty($_POST["club"]) ? $_POST["club"] : null;
             $email = $_POST["email"];
             $tel_capitaine = $_POST["tel_capitaine"];
             $ville_capitaine = $_POST["ville_capitaine"];
             $cp_capitaine = $_POST["cp_capitaine"];
-            $certificat_valider_participant_cap = $_POST['certificat_valider_participant_capitaine'];
-            $id_rfid_cap = $_POST['id_rfid_capitaine'];
+            $certificat_valider_participant_cap = !empty($_POST["certificat_valider_participant_cap"]) ? $_POST["certificat_valider_participant_cap"] : null;
+            $id_rfid_cap = !empty($_POST['id_rfid_capitaine']) ? $_POST['id_rfid_capitaine'] : null;
             
             // Elements spécifique de l' equipier
             $nom_equipier = $_POST["nom_equipier"];
             $prenom_equipier = $_POST["prenom_equipier"];
             $date_naissance_equipier = $_POST["date_naissance_equipier"];
             $adresse_equipier = $_POST["adresse_equipier"];
-            $club_equipier = $_POST["club_equipier"];
+            $club_equipier = !empty($_POST["club_equipier"]) ? $_POST["club_equipier"] : null;
             $email_equipier = $_POST["email_equipier"];
             $tel_equipier = $_POST["tel_equipier"];
             $ville_equipier = $_POST["ville_equipier"];
             $cp_equipier = $_POST["cp_equipier"];
-            $certificat_valider_participant = $_POST['certificat_valider_participant_equipier'];
-            $id_rfid = $_POST['id_rfid_equipier'];
+            $certificat_valider_participant = !empty($_POST['certificat_valider_participant']) ? $_POST['certificat_valider_participant'] : null;
+            $id_rfid = !empty($_POST['id_rfid_equipier']) ? $_POST['id_rfid_equipier'] : null;
 
             
             // On va effectuer des validations ici pour les champs obligatoires
@@ -59,9 +59,8 @@ class PageController {
                 $connexion = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
                 $equipeDAO = new EquipeDAO($connexion);
                 $equipe = new Equipe(null,$categorie_formule, $categorie);
-                $equipes = $equipeDAO->ajouterEquipe($equipe);
-
-                $id_equipe= $connexion->connect()->lastInsertId();
+                $equipeDAO->ajouterEquipe($equipe);
+                $id_equipe= $equipe->getId_equipe();
 
                 $participantDAO = new ParticipantDAO($connexion);
 

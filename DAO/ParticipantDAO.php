@@ -28,6 +28,7 @@ class ParticipantDAO {
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
+            echo $e;
             // Gérer les erreurs d'insertion
             return false;
         }
