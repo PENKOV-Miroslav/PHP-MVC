@@ -99,7 +99,7 @@ public function PageRFID() {
 
         if ($participantId) {
             // Insérez le temps en utilisant l'ID du participant
-            $dureeTemps = '20:20:20';
+            $dureeTemps = date('H:i:s');
             $epreuveId = '2';
             $temps = new Temps($dureeTemps, $participantId, $epreuveId);
             $tempsDAO = new TempsDAO($connexion);
