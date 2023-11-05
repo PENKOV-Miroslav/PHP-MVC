@@ -19,11 +19,19 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <input type="password" class="form-control" name="mot_de_passe" id="mot_de_passe" placeholder="Entrez votre mot de passe" required>
+                            <div class="input-group">
+                                <input type="password" class="form-control" name="mot_de_passe" id="mot_de_passe" placeholder="Entrez votre mot de passe" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text btn btn-secondary">
+                                        <i class="fa fa-eye" id="togglePassword"></i>
+                                    </span>
+                                </div>
+                            </div>
                             <div class="invalid-feedback">
                                 Veuillez entrer votre mot de passe.
                             </div>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Se connecter</button>
                     </form>
                 </div>
@@ -31,3 +39,22 @@
         </div>
     </div>
 </div>
+
+<script>
+// Permet au bouton toggle d'affiche ou non le mot de passe
+const togglePasswordButton = document.getElementById('togglePassword');
+const passwordInput = document.getElementById('mot_de_passe');
+
+togglePasswordButton.addEventListener('click', () => {
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        togglePasswordButton.classList.remove('fa-eye');
+        togglePasswordButton.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        togglePasswordButton.classList.remove('fa-eye-slash');
+        togglePasswordButton.classList.add('fa-eye');
+    }
+});
+</script>
+

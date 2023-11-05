@@ -17,6 +17,20 @@ function getRFID() {
     });
 }
 
+function afficherPageChronometre(){
+    console.log('Fonction afficherPageChrono exécutée');
+    $.ajax({
+        url: 'View/chronometreDebArret.php', // Assurez-vous que c'est le bon chemin d'accès
+        type: 'GET',
+        success: function (data) {
+            $('#resultatInscription').html(data); // Insérez le contenu de la page d'inscription dans l'élément avec l'ID "resultatInscription"
+        },
+        error: function (xhr, status, error) {
+            console.log(error); // En cas d'erreur, affichez l'erreur dans la console
+        }
+    });
+}
+
 function afficherPageInscription() {
     console.log('Fonction afficherPageInscription exécutée');
     $.ajax({
@@ -59,5 +73,8 @@ function afficherPageRFID() {
     });
 }
 
-
-
+function redirigerApresAttente() {
+    setTimeout(function() {
+        window.location = "?action=PageEspaceBenevole";
+    }, 3000);
+}

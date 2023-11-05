@@ -8,6 +8,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['id_role'] === 2) {
     <p>Vous êtes connecté en tant que Secretaire.</p>
     <a class="btn btn-primary" href="?action=PageEspaceSecretaire">Accueil</a>
     <button class="btn btn-primary" id="btnAfficherInscription" onclick="afficherPageInscriptionParticipant()">Inscrire un nouveau compte</button>
+    <button class="btn btn-primary" id="btnAfficherInscription" onclick="afficherPageChronometre()">Afficher Chronomètre</button>
     <a class="btn btn-danger" href="?action=deconnexion">Déconnexion</a>
     <div id="resultatInscription"></div>
 

@@ -90,6 +90,7 @@ public function PageRFID() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Récupérer le code RFID envoyé via POST
         $rfidCode = $_POST['rfid'];
+        $chronoValue = $_POST['chrono'];
         $connexion = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
         $participantDAO = new ParticipantDAO($connexion);
 
@@ -99,7 +100,19 @@ public function PageRFID() {
 
         if ($participantId) {
             // Insérez le temps en utilisant l'ID du participant
-            $dureeTemps = date('H:i:s');
+            $heureActuelle = date('H:i:s');
+            
+            $tempsDepartCourse = $chronoValue;
+
+            // Convertir les heures en secondes
+            $heureActuelleTimestamp = strtotime($heureActuelle);
+            $tempsDepartCourseTimestamp = strtotime($tempsDepartCourse);
+
+            // Calculer la différence en secondes
+            $differenceTemps = $heureActuelleTimestamp - $tempsDepartCourseTimestamp;
+
+            // Convertir la différence en temps au format 'H:i:s'
+            $dureeTemps = gmdate('H:i:s', $differenceTemps);
             $epreuveId = '2';
             $temps = new Temps($dureeTemps, $participantId, $epreuveId);
             $tempsDAO = new TempsDAO($connexion);
@@ -107,11 +120,9 @@ public function PageRFID() {
 
             // Répondre avec succès
             echo "Temps enregistré avec succès pour le participant avec l'ID RFID : " . htmlspecialchars($rfidCode);
-            // Attendre 3 secondes avant de rediriger
-            sleep(3);
-
-            // Rediriger vers la page PageEspaceBenevole.php
-            header("Location: ?action=PageEspaceBenevole");
+            // Appeler la fonction JavaScript pour gérer la redirection
+            echo '<script src="Contenu/js/script.js"></script>';
+            echo '<script>redirigerApresAttente();</script>';
             exit;
         } else {
             // Répondre avec un message d'erreur si l'ID RFID n'a pas été trouvé
@@ -123,17 +134,17 @@ public function PageRFID() {
 
 
     public function PageEspaceAdmin(){
-        $pageTitle = 'PageEspaceAdmin';
+        $pageTitle = 'Espace Admin';
         $contentFile = 'View/PageEspaceAdmin.php';
         include 'View/template.php';
     }
     public function PageEspaceSecretaire(){
-        $pageTitle = 'PageEspaceSecretaire';
+        $pageTitle = 'Espace Secretaire';
         $contentFile = 'View/PageEspaceSecretaire.php';
         include 'View/template.php';
     }
     public function PageEspaceBenevole(){
-        $pageTitle = 'PageEspaceBenevole';
+        $pageTitle = 'Espace Pointeur';
         $contentFile = 'View/PageEspaceBenevole.php';
         include 'View/template.php';
     }
