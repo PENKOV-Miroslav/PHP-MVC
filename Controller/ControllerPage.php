@@ -86,24 +86,65 @@ class PageController {
     }
 }
 
-    public function PageRFID() {
-        //$pageTitle = 'Pointage';
-        //$contentFile = 'View/pointageRfid.php';
-        //include 'View/template.php';
+public function PageRFID() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Récupérer le code RFID envoyé via POST
+        $rfidCode = $_POST['rfid'];
+        $chronoValue = $_POST['chrono'];
+        $connexion = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
+        $participantDAO = new ParticipantDAO($connexion);
+
+        // Recherchez l'ID participant associé à l'ID RFID
+        $participantDAO = new ParticipantDAO($connexion);
+        $participantId = $participantDAO->getParticipantIdByRFID($rfidCode);
+
+        if ($participantId) {
+            // Insérez le temps en utilisant l'ID du participant
+            $heureActuelle = date('H:i:s');
+            
+            $tempsDepartCourse = $chronoValue;
+
+            // Convertir les heures en secondes
+            $heureActuelleTimestamp = strtotime($heureActuelle);
+            $tempsDepartCourseTimestamp = strtotime($tempsDepartCourse);
+
+            // Calculer la différence en secondes
+            $differenceTemps = $heureActuelleTimestamp - $tempsDepartCourseTimestamp;
+
+            // Convertir la différence en temps au format 'H:i:s'
+            $dureeTemps = gmdate('H:i:s', $differenceTemps);
+            $epreuveId = '2';
+            $temps = new Temps($dureeTemps, $participantId, $epreuveId);
+            $tempsDAO = new TempsDAO($connexion);
+            $tempsDAO->ajouterTemps($temps);
+
+            // Répondre avec succès
+            echo "Temps enregistré avec succès pour le participant avec l'ID RFID : " . htmlspecialchars($rfidCode);
+            // Appeler la fonction JavaScript pour gérer la redirection
+            echo '<script src="Contenu/js/script.js"></script>';
+            echo '<script>redirigerApresAttente();</script>';
+            exit;
+        } else {
+            // Répondre avec un message d'erreur si l'ID RFID n'a pas été trouvé
+            echo "ID RFID non trouvé dans la base de données.";
+        }
     }
+}
+
+
 
     public function PageEspaceAdmin(){
-        $pageTitle = 'PageEspaceAdmin';
+        $pageTitle = 'Espace Admin';
         $contentFile = 'View/PageEspaceAdmin.php';
         include 'View/template.php';
     }
     public function PageEspaceSecretaire(){
-        $pageTitle = 'PageEspaceSecretaire';
+        $pageTitle = 'Espace Secretaire';
         $contentFile = 'View/PageEspaceSecretaire.php';
         include 'View/template.php';
     }
     public function PageEspaceBenevole(){
-        $pageTitle = 'PageEspaceBenevole';
+        $pageTitle = 'Espace Pointeur';
         $contentFile = 'View/PageEspaceBenevole.php';
         include 'View/template.php';
     }

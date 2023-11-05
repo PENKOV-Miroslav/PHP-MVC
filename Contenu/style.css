@@ -12,3 +12,30 @@
 main{
     margin-bottom: 90px;
 }
+
+@media print {
+    body * {
+      visibility: hidden;
+    }
+    .container, .container * {
+      visibility: visible;
+    }
+    .container {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    h1 {
+      display: none; /* Masquer le titre */
+    }
+    a {
+      display: none; /* Masquer les liens */
+    }
+    title {
+      display: none; /* Masquer la balise title */
+    }
+    p {
+      display: none; /* Masquer le paragraphe avec le copyright */
+    }
+  
+}
