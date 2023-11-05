@@ -1,88 +1,68 @@
-<div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h2>Chronomètre</h2>
-                        <input type="hidden" id="chronoValue" name="chronoValue" value="00:00:00">
-                        <div id="chrono" class="mb-3">00:00:00</div>
-                        <button id="startButton" class="btn btn-primary">Lancer le chronomètre</button>
-                        <button id="stopButton" class="btn btn-secondary">Arrêter</button>
-                        <button id="resetButton" class="btn btn-danger">Réinitialiser</button>
-                    </div>
-                </div>
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-12 text-center">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">Chronomètre</h2>
+            <div class="card-text">
+              <div class="text-center">
+                <div id="chronometre" class="display-3">00:00:00</div>
+              </div>
+              <div class="text-center mt-3">
+                <button id="demarrer" class="btn btn-primary mr-2">Démarrer</button>
+                <button id="pause" class="btn btn-secondary mr-2">Pause</button>
+                <button id="reinitialiser" class="btn btn-danger">Réinitialiser</button>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+  <script>
+    let timer;
+    let temps = 0;
+    let enCours = false;
 
-    <script>
-        $(document).ready(function() {
-    // Variables pour le chronomètre
-    var timer; // Référence au timer
-    var chrono = $('#chrono');
-    var running = false;
-    var currentTime = 0;
+    const chronometre = document.getElementById("chronometre");
+    const boutonDemarrer = document.getElementById("demarrer");
+    const boutonPause = document.getElementById("pause");
+    const boutonReinitialiser = document.getElementById("reinitialiser");
 
-    // Gestionnaire de clic pour le bouton "Lancer le chronomètre"
-    $('#startButton').click(function() {
-        if (!running) {
-            timer = setInterval(updateChrono, 1000);
-            running = true;
-        }
-    });
+    function demarrerChronometre() {
+      if (!enCours) {
+        enCours = true;
+        timer = setInterval(function() {
+          temps++;
+          afficherTemps();
+        }, 1000);
+      }
+    }
 
-    // Gestionnaire de clic pour le bouton "Arrêter"
-    $('#stopButton').click(function() {
-        if (running) {
-            clearInterval(timer);
-            running = false;
-            // Récupérer la valeur du chronomètre lorsque vous arrêtez le chronomètre
-            var chronoValue = chrono.text();
-            // Envoyer la valeur du chronomètre à votre contrôleur RFID
-            envoyerChronoAuControleur(chronoValue);
-        }
-    });
-
-    // Gestionnaire de clic pour le bouton "Réinitialiser"
-    $('#resetButton').click(function() {
+    function mettreEnPause() {
+      if (enCours) {
+        enCours = false;
         clearInterval(timer);
-        running = false;
-        currentTime = 0;
-        chrono.text('00:00:00');
-    });
-
-    // Fonction pour mettre à jour le chronomètre
-    function updateChrono() {
-        currentTime += 1;
-        var hours = Math.floor(currentTime / 3600);
-        var minutes = Math.floor((currentTime % 3600) / 60);
-        var seconds = currentTime % 60;
-        var formattedTime = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds);
-        chrono.text(formattedTime);
-        // Mettez à jour la valeur du champ caché
-        $('#chronoValue').val(formattedTime);
+      }
     }
 
-
-    // Fonction pour formater le temps en "HH:MM:SS"
-    function formatTime(time) {
-        return time < 10 ? '0' + time : time;
+    function reinitialiserChronometre() {
+      enCours = false;
+      clearInterval(timer);
+      temps = 0;
+      afficherTemps();
     }
 
-    // Fonction pour envoyer la valeur du chronomètre au contrôleur RFID
-    function envoyerChronoAuControleur(chronoValue) {
-        $.ajax({
-            type: 'POST',
-            url: 'votre_controleur.php', // Remplacez 'votre_controleur.php' par l'URL de votre contrôleur RFID
-            data: { chrono: chronoValue }, // Envoyez la valeur du chronomètre
-            success: function(data) {
-                // Gestion de la réponse du contrôleur ici
-            },
-            error: function() {
-                // Gérez les erreurs de requête AJAX ici
-            }
-        });
+    function afficherTemps() {
+      const heures = Math.floor(temps / 3600);
+      const minutes = Math.floor((temps % 3600) / 60);
+      const secondes = temps % 60;
+      chronometre.textContent = `${heures.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secondes.toString().padStart(2, '0')}`;
     }
-});
 
-    </script>
+    boutonDemarrer.addEventListener("click", demarrerChronometre);
+    boutonPause.addEventListener("click", mettreEnPause);
+    boutonReinitialiser.addEventListener("click", reinitialiserChronometre);
+
+    afficherTemps();
+  </script>
