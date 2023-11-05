@@ -90,7 +90,8 @@ public function PageRFID() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Récupérer le code RFID envoyé via POST
         $rfidCode = $_POST['rfid'];
-        $chronoValue = $_POST['chrono'];
+        //$chronoValue = $_POST['chrono']; // a partir de cette varaiable nous devons recuperer la valeur du chrono mais cela n'est pas encore fonctionnel
+        $epreuve = $_POST['option'];
         $connexion = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
         $participantDAO = new ParticipantDAO($connexion);
 
@@ -102,7 +103,7 @@ public function PageRFID() {
             // Insérez le temps en utilisant l'ID du participant
             $heureActuelle = date('H:i:s');
             
-            $tempsDepartCourse = $chronoValue;
+            $tempsDepartCourse = "00:40:00"; // ce si est notre exemple de temps qui devrait fonctionner avec le chrono mais la fonctionnalité n'est pas encore au point
 
             // Convertir les heures en secondes
             $heureActuelleTimestamp = strtotime($heureActuelle);
@@ -113,7 +114,7 @@ public function PageRFID() {
 
             // Convertir la différence en temps au format 'H:i:s'
             $dureeTemps = gmdate('H:i:s', $differenceTemps);
-            $epreuveId = '2';
+            $epreuveId = $epreuve;
             $temps = new Temps($dureeTemps, $participantId, $epreuveId);
             $tempsDAO = new TempsDAO($connexion);
             $tempsDAO->ajouterTemps($temps);
