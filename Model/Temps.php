@@ -9,8 +9,7 @@ class Temps{
     private $id_epreuve;
 
     // Constructeur de l'objet Temps
-    public function __construct($id_temps, $duree_temps,$id_participant,$id_epreuve) {
-        $this->id_temps = $id_temps;
+    public function __construct($duree_temps,$id_participant,$id_epreuve) {
         $this->duree_temps = $duree_temps;
         $this->id_participant = $id_participant;
         $this->id_epreuve = $id_epreuve;

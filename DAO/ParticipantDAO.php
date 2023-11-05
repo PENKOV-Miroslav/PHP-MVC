@@ -89,6 +89,28 @@ class ParticipantDAO {
         }
     }
 
+    public function getParticipantIdByRFID($rfidCode) {
+        $sql = "SELECT ID_PARTICIPANT FROM PARTICIPANT WHERE ID_RFID = :rfidCode";
+    
+        // Utilisation de préparation de requête pour éviter les injections SQL
+        $stmt = $this->connexion->connect()->prepare($sql);
+        $stmt->bindParam(':rfidCode', $rfidCode, PDO::PARAM_STR);
+    
+        // Exécution de la requête
+        if ($stmt->execute()) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Vérifier si l'ID participant a été trouvé
+            if ($row) {
+                return $row['ID_PARTICIPANT'];
+            }
+        }
+    
+        // Si l'ID RFID n'est pas trouvé, retournez une valeur nulle ou une indication de non-trouvée
+        return null;
+    }
+    
+
     public function getAllParticipants() {
         $sql = "SELECT * FROM participant";
         $stmt = $this->connexion->connect()->query($sql);

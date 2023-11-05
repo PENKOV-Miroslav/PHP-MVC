@@ -86,11 +86,41 @@ class PageController {
     }
 }
 
-    public function PageRFID() {
-        //$pageTitle = 'Pointage';
-        //$contentFile = 'View/pointageRfid.php';
-        //include 'View/template.php';
+public function PageRFID() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Récupérer le code RFID envoyé via POST
+        $rfidCode = $_POST['rfid'];
+        $connexion = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
+        $participantDAO = new ParticipantDAO($connexion);
+
+        // Recherchez l'ID participant associé à l'ID RFID
+        $participantDAO = new ParticipantDAO($connexion);
+        $participantId = $participantDAO->getParticipantIdByRFID($rfidCode);
+
+        if ($participantId) {
+            // Insérez le temps en utilisant l'ID du participant
+            $dureeTemps = '20:20:20';
+            $epreuveId = '2';
+            $temps = new Temps($dureeTemps, $participantId, $epreuveId);
+            $tempsDAO = new TempsDAO($connexion);
+            $tempsDAO->ajouterTemps($temps);
+
+            // Répondre avec succès
+            echo "Temps enregistré avec succès pour le participant avec l'ID RFID : " . htmlspecialchars($rfidCode);
+            // Attendre 3 secondes avant de rediriger
+            sleep(3);
+
+            // Rediriger vers la page PageEspaceBenevole.php
+            header("Location: ?action=PageEspaceBenevole");
+            exit;
+        } else {
+            // Répondre avec un message d'erreur si l'ID RFID n'a pas été trouvé
+            echo "ID RFID non trouvé dans la base de données.";
+        }
     }
+}
+
+
 
     public function PageEspaceAdmin(){
         $pageTitle = 'PageEspaceAdmin';
