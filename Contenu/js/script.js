@@ -59,5 +59,30 @@ function afficherPageRFID() {
     });
 }
 
+$(document).ready(function() {
+    $("#temps-type, #categorie, #circuit").on("change click", updateResults);
+    updateResults();
+});
 
+function updateResults() {
+    // Récupérer les valeurs des filtres
+    const tempsType = $("#temps-type").val();
+    const categorie = $("#categorie").val();
+    const circuit = $("#circuit").val();
 
+    $.ajax({
+        type: "POST",
+        url: "DAO/get_results.php",
+        data: {
+            tempsType: tempsType,
+            categorie: categorie,
+            circuit : circuit
+        },
+        success: function (data) {
+            $("#results-table tbody").html(data);
+        },
+        error: function (xhr, status, error) {
+            console.log(error); // En cas d'erreur, affichez l'erreur dans la console
+        }
+    });
+}
