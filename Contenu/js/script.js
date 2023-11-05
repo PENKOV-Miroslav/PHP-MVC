@@ -73,8 +73,9 @@ function afficherPageRFID() {
     });
 }
 
+// Lorsque le document est prêt, on ajoute des écouteurs d'événements aux éléments de filtrage. A chaque clique sur un des filtres, les données seront mises à jour
 $(document).ready(function() {
-    $("#temps-type, #categorie, #circuit").on("change click", updateResults);
+    $("#temps-type, #categorie, #circuit, #epreuve").on("change click", updateResults);
     updateResults();
 });
 
@@ -83,16 +84,20 @@ function updateResults() {
     const tempsType = $("#temps-type").val();
     const categorie = $("#categorie").val();
     const circuit = $("#circuit").val();
+    const epreuve = $("#epreuve").val();
 
+    // Utilisation d'AJAX pour envoyer les valeurs des filtres au script PHP côté serveur
     $.ajax({
         type: "POST",
         url: "DAO/get_results.php",
         data: {
             tempsType: tempsType,
             categorie: categorie,
-            circuit : circuit
+            circuit : circuit,
+            epreuve : epreuve
         },
         success: function (data) {
+            // Met à jour le contenu du tableau HTML (#results-table) avec les données reçues du script PHP
             $("#results-table tbody").html(data);
         },
         error: function (xhr, status, error) {

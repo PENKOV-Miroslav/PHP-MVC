@@ -19,6 +19,12 @@
                     <option value="3">Mixte</option>
                     <option value="4">VAE</option>
                 </select>
+                <select id="epreuve" class="form-select mb-3 mr-sm-3">
+                    <option value="TempsCumule">Temps total</option>
+                    <option value="Course_a_pied">Temps course à pied</option>
+                    <option value="Canoe">Temps canoë</option>
+                    <option value="VTT">Temps vtt</option>
+                </select>
             </form>
                 <table id="results-table" class="table table-bordered">
                     <!-- Tableau pour l'onglet 1 -->

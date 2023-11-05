@@ -4,6 +4,7 @@ require_once('ConnexionBDD.php');
 $tempsType = $_POST['tempsType'];
 $categorie = $_POST['categorie'];
 $circuit = $_POST['circuit'];
+$epreuve = $_POST['epreuve'];
 
 $connexion = new ConnexionBDD('localhost', 'raid_ckc', 'raid_ckc', 'raid_ckc');
 $con = $connexion->connect();
@@ -11,11 +12,11 @@ $con = $connexion->connect();
 $nom_table = "TempsMinParticipantCircuit".$circuit;
 
 if ($tempsType == 'equipe'){
-    $sql = 'SELECT P.ID_EQUIPE AS ID,
-    MAX(TMP.TempsCumule) AS TempsCumuleMax
-    FROM '.$nom_table.' TMP';
+    $sql = "SELECT P.ID_EQUIPE AS ID,
+    MAX(TMP.$epreuve) AS TempsCumuleMax
+    FROM ".$nom_table." TMP";
 } else{
-    $sql = 'SELECT TMP.ID_PARTICIPANT AS ID, TMP.TempsCumule AS TempsCumuleMax FROM '.$nom_table.' TMP';
+    $sql = "SELECT TMP.ID_PARTICIPANT AS ID, TMP.$epreuve AS TempsCumuleMax FROM ".$nom_table." TMP";
 }
 
 $sql .= ' INNER JOIN PARTICIPANT P ON TMP.ID_PARTICIPANT = P.ID_PARTICIPANT

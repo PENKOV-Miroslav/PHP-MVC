@@ -13,6 +13,10 @@ main{
     margin-bottom: 90px;
 }
 
+#results-table th, #results-table td {
+  width: 50%;
+}
+
 @media print {
     body * {
       visibility: hidden;
